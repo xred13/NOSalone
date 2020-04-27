@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Concert from "./Concert";
 import axios from "axios";
+import NewConcert from "./NewConcert";
 
 class Concerts extends Component {
 
@@ -29,7 +30,7 @@ class Concerts extends Component {
 
         console.log("inserting default values for concerts")
         this.setState({
-          concerts: [{concertName:"First concert", name:"Dj jaime", genre:this.state.genre}, {title:"Second concert", name:"Dj mariana", genre:this.state.genre}]
+          concerts: [{concertName:"First concert", artistName:"Dj jaime", date:"25/1/9999", slots:6, image:"something goes here:)"}, {concertName:"second greatest concert", artistName:"Dj marina", date:"25/1/0000", slots:1, image:"something goes here"}]
         })
       })
   }
@@ -38,6 +39,8 @@ class Concerts extends Component {
     return (
 
       <div id="concerts">
+
+        <NewConcert/>
 
         {this.state.genre != null ? 
 
