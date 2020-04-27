@@ -1,19 +1,21 @@
 import React from 'react';
-import Contacts from './components/Contacts';
-import './App.css';
+import HomePage from './components/homepage/HomePage';
+import {BrowserRouter, Route} from "react-router-dom";
+import Default404 from './components/default404/Default404';
+import Navbar from './components/navbar/Navbar';
+import "./sass/root/Root.scss";
 
 function App() {
     return (
-        <div className="container-fluid">
-            <nav>
-                <div className="nav-wrapper center-align">
-                    <a href="/" className="brand-logo">Contacts</a>
-                </div>
-            </nav>
-            <div className="row">
-                <Contacts />
-            </div>
-        </div>
+        <BrowserRouter>
+
+            <Navbar />
+
+            <Route exact path="/" component={HomePage} />
+            
+            <Route exact path="/....." component={Default404} />
+
+        </BrowserRouter>
     );
 }
 
