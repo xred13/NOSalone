@@ -21,6 +21,7 @@ public class Concert {
     private Calendar date;
     private Integer numberMaxFans;
     private String artistName;
+    private String concertName;
     private String musicGenre;
     @Lob
     private String imgBase64;
@@ -29,11 +30,12 @@ public class Concert {
 
     }
 
-    public Concert( /*Artist artist,*/ Calendar date, Integer numberMaxFans, String artistName, String musicGenre, String imgBase64) {
+    public Concert( /*Artist artist,*/ Calendar date, Integer numberMaxFans, String artistName, String concertName, String musicGenre, String imgBase64) {
         //this.artist = artist;
         this.date = date;
         this.numberMaxFans = numberMaxFans;
         this.artistName = artistName;
+        this.concertName = concertName;
         this.musicGenre = musicGenre;
         this.imgBase64 = imgBase64;
     }
@@ -68,6 +70,14 @@ public class Concert {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public String getConcertName(){
+        return concertName;
+    }
+
+    public void setConcertName(String concertName){
+        this.concertName = concertName;
     }
 
     public String getMusicGenre() {

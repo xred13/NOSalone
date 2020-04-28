@@ -37,7 +37,7 @@ public class ConcertController {
         Collection<ConcertDTO> concertDTOCollection = new ArrayList<>();
 
         for (Concert concert : concertCollection) {
-            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getNumberMaxFans(), concert.getArtistName(), concert.getMusicGenre(), concert.getImgBase64()));
+            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getNumberMaxFans(), concert.getArtistName(), concert.getConcertName(), concert.getMusicGenre(), concert.getImgBase64()));
         }
 
         return concertDTOCollection;
@@ -46,7 +46,7 @@ public class ConcertController {
     @PostMapping("/concerts")
     ResponseEntity<Concert> createConcert(@Valid @RequestBody ConcertDTO concertDTO) throws URISyntaxException {
 
-        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getNumberMaxFans(), concertDTO.getArtistName(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
+        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getNumberMaxFans(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
 
         Concert result = concertRepository.save(concert);
 

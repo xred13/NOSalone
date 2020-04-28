@@ -34,8 +34,8 @@ public class DemoLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         this.artistRepository.save(new Artist("Jaime","Verde", "jaime@verde.pt"));
         this.fanRepository.save(new Fan("Mariana", "Marçal", "maria@gmail.com"));
-        this.concertRepository.save(new Concert(Calendar.getInstance(), 2, "ShowDoJaime", "rock","https://picsum.photos/200/300"));
-        this.concertRepository.save(new Concert(Calendar.getInstance(), 1, "Show2", "jazz","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(Calendar.getInstance(), 2, "JAIMAO", "ShowDoJaime", "rock","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(Calendar.getInstance(), 1, "BENNAZI", "Show2", "jazz","https://picsum.photos/200/300"));
     }
 
 

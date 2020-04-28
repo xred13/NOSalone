@@ -5,8 +5,9 @@ import ImageUploader from "react-images-upload";
 class NewConcert extends Component {
   state = {
     artistName: "",
+    concertName: "",
     date: "",
-    slots: null,
+    numberMaxFans: 1,
     image: null,
   };
 
@@ -57,6 +58,7 @@ class NewConcert extends Component {
       "date": this.state.date,
       "numberMaxFans": this.state.slots,
       "artistName": this.state.artistName,
+      "concertName": this.state.concertName,
       "musicGenre": this.props.genre,
       "imgBase64": imageBase64
     };
@@ -85,6 +87,15 @@ class NewConcert extends Component {
               onChange={this.handleChange}
             />
           </label>
+          <label>
+            Concert Name:
+            <input 
+              type="text"
+              name="concertName"
+              value={this.state.concertName}
+              onChange={this.handleChange}
+            />
+          </label>
           <br />
           <label>
             Date:
@@ -100,8 +111,8 @@ class NewConcert extends Component {
             Slots:
             <input
               type="number"
-              name="slots"
-              value={this.state.slots}
+              name="numberMaxFans"
+              value={this.state.numberMaxFans}
               onChange={this.handleChange}
             />
           </label>
