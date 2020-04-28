@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
 
-const MusicGenreElement = (props) => {
+const MusicGenreElement = props => {
+  return (
+    <div
+      onClick={() => props.setCurrentGenre(props.genre)}
+      className="music-genre-element"
+    >
+      {props.genre}
+    </div>
+  );
+};
 
-    return(
-        <div onClick={() => props.setCurrentGenre(props.genre)} className="music-genre-element">
-            {props.genre}
-        </div>
-    );
-}
- 
 export default MusicGenreElement;

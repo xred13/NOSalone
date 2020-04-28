@@ -1,9 +1,25 @@
 #navbar{
-    display:flex;
-    height: 80px;
-    background-color: grey;
+    
+    
+    
 
-    button{
-        flex: auto;
+    #nosAlone {
+        max-width: 100%;
+        height: auto;
+        position: absolute;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
+    
+
+    .navbar-nav {
+        display: -webkit-box;
+        float: right;
+      }
+      
+    .nav-item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
 }
