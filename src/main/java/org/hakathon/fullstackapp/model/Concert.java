@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.util.Calendar;
 
 @Data
@@ -20,6 +21,7 @@ public class Concert {
     private Integer numberMaxFans;
     private String name;
     private String musicGenre;
+    @Lob
     private String imgURL;
 
     public Concert() {
