@@ -19,9 +19,7 @@ class HomePage extends Component {
 
     async componentDidMount() {
 
-        let response = null;
-
-        await axios.get("localhost:api/genres")
+        await axios.get("http://localhost:8080/NosAlone/concert/musicGenre")
             .then(response => {
                 this.setState({
                     genres: response.data

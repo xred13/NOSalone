@@ -19,7 +19,7 @@ class Concerts extends Component {
       genre: nextProps.currentGenre
     })
 
-    axios.get("localhost:api")
+    axios.get("http://localhost:8080/NosAlone/concert/concerts")
       .then(response => {
         this.setState({
           concerts: response.data
