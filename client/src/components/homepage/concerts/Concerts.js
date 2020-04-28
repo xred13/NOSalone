@@ -10,16 +10,21 @@ class Concerts extends Component {
     concerts: []
   };
   
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps = (nextProps) => {
 
-    console.log("Received props")
-    console.log(nextProps)
+    if(nextProps.currentGenre === null){
+      return;
+    }
 
     this.setState({
       genre: nextProps.currentGenre
     })
 
-    axios.get("http://localhost:8080/NosAlone/concert/concerts")
+    let params = {
+      musicGenre: nextProps.currentGenre
+    }
+
+    axios.get("http://localhost:8080/NosAlone/concert/concerts", {params})
       .then(response => {
         this.setState({
           concerts: response.data
@@ -27,10 +32,11 @@ class Concerts extends Component {
       })
       .catch(response => {
         console.log("oops, something went wrong!")
+        console.log(response)
 
         console.log("inserting default values for concerts")
         this.setState({
-          concerts: [{concertName:"First concert", artistName:"Dj jaime", date:"25/1/9999", slots:6, image:"something goes here:)"}, {concertName:"second greatest concert", artistName:"Dj marina", date:"25/1/0000", slots:1, image:"something goes here"}]
+          concerts: [{artistName:"Dj jaime", date:"25/1/9999", numberMaxFans:6, imgBase64:"something goes here:)"}, {artistName:"Dj marina", date:"25/1/0000", numberMaxFans:1, imgBase64:"something goes here"}]
         })
       })
   }
@@ -40,7 +46,7 @@ class Concerts extends Component {
 
       <div id="concerts">
 
-        <NewConcert/>
+        <NewConcert genre={this.state.genre}/>
 
         {this.state.genre != null ? 
 

@@ -1,49 +1,27 @@
-package org.hakathon.fullstackapp.model;
+package org.hakathon.fullstackapp.dtos;
 
-import lombok.Data;
+import org.hakathon.fullstackapp.model.Concert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import java.sql.Time;
 import java.util.Calendar;
 
-@Data
-@Entity
-public class Concert {
+public class ConcertDTO {
 
-
-    @Id
-    @GeneratedValue
-    private Long id;
-    //private Artist artist;
     private Calendar date;
     private Integer numberMaxFans;
     private String artistName;
     private String musicGenre;
-    @Lob
     private String imgBase64;
 
-    public Concert() {
+    public ConcertDTO(){}
 
-    }
-
-    public Concert( /*Artist artist,*/ Calendar date, Integer numberMaxFans, String artistName, String musicGenre, String imgBase64) {
-        //this.artist = artist;
+    public ConcertDTO(Calendar date, Integer numberMaxFans, String artistName, String musicGenre, String imgBase64){
         this.date = date;
         this.numberMaxFans = numberMaxFans;
         this.artistName = artistName;
         this.musicGenre = musicGenre;
         this.imgBase64 = imgBase64;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Calendar getDate() {

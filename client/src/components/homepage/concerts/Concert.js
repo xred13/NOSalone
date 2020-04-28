@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 
 const Concert = (props) => {
-  const { concertName, artistName, date, slots, image } = props.concertData;
+  const { artistName, date, numberMaxFans, imgBase64 } = props.concertData;
 
   return (
     <div>
       <hr />
-      {concertName}
-      <br />
       {artistName}
       <br />
       {date}
       <br />
-      {slots}
+      {numberMaxFans}
       <br />
-      {image}
+      <img src={imgBase64} />
       <hr />
     </div>
   );
