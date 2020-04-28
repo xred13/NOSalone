@@ -63,8 +63,7 @@ class NewConcert extends Component {
       "imgURL": imageBase64,
     };
 
-    axios
-      .post("http://localhost:8080/NosAlone/concert/concerts", body, headers)
+    axios.post("http://localhost:8080/NosAlone/concert/concerts", body, headers)
       .then((response) => {
         console.log("Form sent successfully!");
         console.log(response);
