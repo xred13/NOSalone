@@ -25,9 +25,6 @@ class HomePage extends Component {
         });
       })
       .catch(response => {
-        console.log("Oops, something went wrong!");
-        console.log(response);
-
         console.log("Initializing genres with default values");
         this.setState({
           genres: [
@@ -53,7 +50,6 @@ class HomePage extends Component {
         <MusicGenres
           className="music-genres"
           setCurrentGenre={this.setCurrentGenre}
-          genres={this.state.genres}
         />
         <Concerts currentGenre={this.state.currentGenre} />
       </div>

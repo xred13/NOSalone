@@ -6,10 +6,7 @@ class Banner extends Component {
     return (
       <div className="row">
         <div className="col-md-12 banner">
-          <img
-            id="banner-img"
-            src="https://i.picsum.photos/id/411/2000/400.jpg"
-          ></img>
+          <img id="banner-img" src="/images/bannerHome.png"></img>
         </div>
       </div>
     );

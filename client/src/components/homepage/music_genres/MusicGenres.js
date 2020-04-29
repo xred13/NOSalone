@@ -5,72 +5,42 @@ import "./../../../sass/homepage/music_genres/MusicGenres.scss";
 
 const MusicGenres = props => {
   return (
-    /*
-    {props.genres.map((genre, i) => (
-      <MusicGenreElement
-
-        setCurrentGenre={props.setCurrentGenre}
-        genre={genre}
-        key={i}
-      />
-    ))}*/
-
     <div class="wrapper">
       <section id="section1">
-        <a href="#section3">‹</a>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/316/200/200.jpg" />
+        <a href="#section2">‹</a>
+        <div onclick={() => props.setCurrentGenre("acoustic")} class="item">
+          <img src="/images/acoustic.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/36/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("chill")} class="item">
+          <img src="/images/chill.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/31/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("classic")} class="item">
+          <img src="/images/classic.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/16/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("electronic")} class="item">
+          <img src="/images/electronic.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/39/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("hiphop")} class="item">
+          <img src="/images/hiphop.png" />
         </div>
-        <a href="#section3">›</a>
+        <a href="#section2">›</a>
       </section>
       <section id="section2">
         <a href="#section1">‹</a>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/416/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("jazz")} class="item">
+          <img src="/images/jazz.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/397/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("pop")} class="item">
+          <img src="/images/pop.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/216/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("reggae")} class="item">
+          <img src="/images/reggae.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/916/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("rock")} class="item">
+          <img src="/images/rock.png" />
         </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/318/200/200.jpg" />
-        </div>
-        <a href="#section3">›</a>
-      </section>
-
-      <section id="section3">
-        <a href="#section2">‹</a>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/300/200/200.jpg" />
-        </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/309/200/200.jpg" />
-        </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/123/200/200.jpg" />
-        </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/458/200/200.jpg" />
-        </div>
-        <div class="item">
-          <img src="https://i.picsum.photos/id/90/200/200.jpg" />
+        <div onclick={() => props.setCurrentGenre("soul")} class="item">
+          <img src="/images/soul.png" />
         </div>
         <a href="#section1">›</a>
       </section>
