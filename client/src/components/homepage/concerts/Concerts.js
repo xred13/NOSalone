@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Concert from "./Concert";
 import axios from "axios";
 import NewConcert from "./NewConcert";
-import "./../../../sass/homepage/concerts/NewConcert.scss";
+
+
+
 
 class Concerts extends Component {
   state = {
