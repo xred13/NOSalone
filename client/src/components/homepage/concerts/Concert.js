@@ -17,8 +17,10 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import axios from "axios";
+
 const Concert = props => {
-  const { artistName, concertName, date, numberMaxFans, imgBase64 } = props.concertData;
+  const { artistName, concertName, musicGenre, date, imgBase64 } = props.concertData;
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -50,6 +52,29 @@ const Concert = props => {
     setExpanded(!expanded);
   };
 
+  const buyConcert = () => {
+
+    alert("You bought a concert :)")
+
+    let params = {
+        "date": date,
+        "artistName": artistName,
+        "concertName": concertName,
+    }
+
+    axios.get("http://localhost:8080/NosAlone/concert/buyconcert", {params})
+      .then(response => {
+        console.log("bought concert! :)")
+      })
+      .catch(response => {
+        console.log("oops, something went wrong!")
+        console.log(response)
+      })
+
+    props.removeConcert(props.index);
+
+  }
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -69,7 +94,7 @@ const Concert = props => {
       <CardMedia className={classes.media} image={imgBase64} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Amazing show do Jaime: {concertName} Vagas: {numberMaxFans}
+          Amazing show do Jaime: {concertName}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -81,6 +106,7 @@ const Concert = props => {
         </IconButton>
         <button
           variant="outlined"
+          onClick={buyConcert}
           className="btn btn-danger"
           data-toggle="modal"
           data-target="#exampleModal"
@@ -117,46 +143,6 @@ const Concert = props => {
           </Typography>
         </CardContent>
       </Collapse>
-
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </Card>
   );
 };

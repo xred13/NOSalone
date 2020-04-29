@@ -8,17 +8,21 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import "../../sass/navbar/Navbar.scss";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
+
+const dosomething = () => {
+  console.log("CLICKED :)");
+};
 
 export default function ButtonAppBar() {
   const classes = useStyles();
@@ -28,10 +32,14 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            NOS Alone
+            <a href="/">NOS Alone</a>
           </Typography>
-          <Button color="inherit">Add a concert</Button>
-          <Button color="inherit">Login</Button>
+          <Button href="/form" color="inherit">
+            Add a concert
+          </Button>
+          <Button href="/login" color="inherit">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -2,10 +2,7 @@ package org.hakathon.fullstackapp.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Calendar;
 
@@ -17,12 +14,12 @@ public class Concert {
     @Id
     @GeneratedValue
     private Long id;
-    //private Artist artist;
+
     private Calendar date;
-    private Integer numberMaxFans;
     private String artistName;
     private String concertName;
     private String musicGenre;
+
     @Lob
     private String imgBase64;
 
@@ -30,10 +27,8 @@ public class Concert {
 
     }
 
-    public Concert( /*Artist artist,*/ Calendar date, Integer numberMaxFans, String artistName, String concertName, String musicGenre, String imgBase64) {
-        //this.artist = artist;
+    public Concert( Calendar date, String artistName, String concertName, String musicGenre, String imgBase64) {
         this.date = date;
-        this.numberMaxFans = numberMaxFans;
         this.artistName = artistName;
         this.concertName = concertName;
         this.musicGenre = musicGenre;
@@ -54,14 +49,6 @@ public class Concert {
 
     public void setDate(Calendar date) {
         this.date = date;
-    }
-
-    public Integer getNumberMaxFans() {
-        return numberMaxFans;
-    }
-
-    public void setNumberMaxFans(Integer numberMaxFans) {
-        this.numberMaxFans = numberMaxFans;
     }
 
     public String getArtistName() {
