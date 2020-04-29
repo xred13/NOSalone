@@ -95,6 +95,7 @@ class NewConcert extends Component {
                       name="artistName"
                       value={this.state.artistName}
                       onChange={this.handleChange}
+                      required
                     />
                   </div>
 
@@ -105,12 +106,20 @@ class NewConcert extends Component {
                       name="concertName"
                       value={this.state.concertName}
                       onChange={this.handleChange}
+                      required
                     />
                   </div>
 
                   <div className="form-group">
-                    <select id="inputState" class="form-control" name="musicGenre" value={this.state.musicGenre} onChange={this.handleChange}>
-                      <option selected> Choose Music Genre</option>
+                    <select 
+                      id="inputState" 
+                      class="form-control" 
+                      name="musicGenre" 
+                      value={this.state.musicGenre} 
+                      onChange={this.handleChange}
+                      required
+                    >
+                      <option selected value=""> Choose Music Genre</option>
                       <option value="acoustic">Acoustic</option>
                       <option value="chill">Chill</option>
                       <option value="classic">Classic</option>
@@ -133,6 +142,7 @@ class NewConcert extends Component {
                       name="description"
                       value={this.state.description}
                       onChange={this.handleChange}
+                      required
                     >
                     </textarea>
                   </div>
@@ -162,6 +172,7 @@ class NewConcert extends Component {
                         name="date"
                         value={this.state.date}
                         onChange={this.handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -172,7 +183,7 @@ class NewConcert extends Component {
                       withIcon={true}
                       buttonText="Upload Image"
                       onChange={this.handleImageChange}
-                      imgExtension={[".jpg", ".gif.png"]}
+                      imgExtension={[".jpg", ".gif", ".png"]}
                       maxFileSize={5242880}
                       singleImage={true}
                     />
