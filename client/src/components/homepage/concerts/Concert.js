@@ -79,7 +79,12 @@ const Concert = props => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <button variant="outlined" className="btn btn-danger">
+        <button
+          variant="outlined"
+          className="btn btn-danger"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
           BUY NOW
         </button>
         <IconButton
@@ -112,6 +117,46 @@ const Concert = props => {
           </Typography>
         </CardContent>
       </Collapse>
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </Card>
   );
 };

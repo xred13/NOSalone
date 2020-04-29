@@ -66,16 +66,16 @@ class Concerts extends Component {
 
   render() {
     return (
-      <div id="concerts">
-        <NewConcert />
-
-        {this.state.genre != null ? (
-          this.state.concerts.map((concertData, i) => (
-            <Concert concertData={concertData} key={i} />
-          ))
-        ) : (
-          <div>Sorry, no concerts for this given genre!</div>
-        )}
+      <div className="row" id="concerts">
+        <div className="col-md-12">
+          {this.state.genre != null ? (
+            this.state.concerts.map((concertData, i) => (
+              <Concert concertData={concertData} key={i} />
+            ))
+          ) : (
+            <div>Sorry, no concerts for this given genre!</div>
+          )}
+        </div>
       </div>
     );
   }

@@ -1,22 +1,23 @@
-import React from 'react';
-import HomePage from './components/homepage/HomePage';
-import {BrowserRouter, Route} from "react-router-dom";
-import Default404 from './components/default404/Default404';
-import Navbar from './components/navbar/Navbar';
+import React from "react";
+import HomePage from "./components/homepage/HomePage";
+import { BrowserRouter, Route } from "react-router-dom";
+import Default404 from "./components/default404/Default404";
+import Navbar from "./components/navbar/Navbar";
+import Banner from "./components/banner/Banner";
 import "./sass/root/Root.scss";
 
 function App() {
-    return (
-        <BrowserRouter>
+  return (
+    <BrowserRouter>
+      <Navbar />
 
-            <Navbar />
+      <Banner />
 
-            <Route exact path="/" component={HomePage} />
-            
-            <Route exact path="/....." component={Default404} />
+      <Route exact path="/" component={HomePage} />
 
-        </BrowserRouter>
-    );
+      <Route exact path="/....." component={Default404} />
+    </BrowserRouter>
+  );
 }
 
 export default App;

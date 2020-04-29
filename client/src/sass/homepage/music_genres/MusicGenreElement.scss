@@ -1,10 +1,5 @@
-.music-genre-element{
-
-    height: 50px;
-    color: white;
-
-    &:hover{
-        background-color: grey;
-    }
-
+.music-genre-element {
+  &:hover {
+    background-color: grey;
+  }
 }

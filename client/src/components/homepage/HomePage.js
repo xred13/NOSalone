@@ -7,24 +7,24 @@ import axios from "axios";
 class HomePage extends Component {
   state = {
     genres: [],
-    currentGenre: null,
+    currentGenre: null
   };
 
-  setCurrentGenre = (genre) => {
+  setCurrentGenre = genre => {
     this.setState({
-      currentGenre: genre,
+      currentGenre: genre
     });
   };
 
   async componentDidMount() {
     await axios
       .get("http://localhost:8080/NosAlone/concert/musicGenre")
-      .then((response) => {
+      .then(response => {
         this.setState({
-          genres: response.data,
+          genres: response.data
         });
       })
-      .catch((response) => {
+      .catch(response => {
         console.log("Oops, something went wrong!");
         console.log(response);
 
@@ -37,8 +37,8 @@ class HomePage extends Component {
             "piano",
             "guitar",
             "metal",
-            "something",
-          ],
+            "something"
+          ]
         });
       });
 
@@ -51,6 +51,7 @@ class HomePage extends Component {
     return (
       <div id="homepage">
         <MusicGenres
+          className="music-genres"
           setCurrentGenre={this.setCurrentGenre}
           genres={this.state.genres}
         />
