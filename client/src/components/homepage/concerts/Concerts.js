@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Concert from "./Concert";
 import axios from "axios";
-import NewConcert from "./NewConcert";
-import "./../../../sass/homepage/concerts/NewConcert.scss";
+import "./../../../sass/homepage/concerts/Concerts.scss";
 
 class Concerts extends Component {
   state = {
@@ -40,29 +39,29 @@ class Concerts extends Component {
             {
               concertName: "First concert",
               artistName: "Dj jaime",
+              musicGenre: "rock",
               date: "30/4/2020",
-              numberMaxFans: 6,
               imgBase64: "https://i.picsum.photos/id/434/300/200.jpg"
             },
             {
               concertName: "second greatest concert",
               artistName: "Dj Fábio",
+              musicGenre: "rock",
               date: "1/5/2020",
-              numberMaxFans: 1,
               imgBase64: "https://i.picsum.photos/id/790/300/200.jpg"
             },
             {
               concertName: "second greatest concert",
               artistName: "Dj Nunes",
+              musicGenre: "rock",
               date: "1/5/2020",
-              numberMaxFans: 1,
               imgBase64: "https://i.picsum.photos/id/349/300/200.jpg"
             },
             {
               concertName: "second greatest concert",
               artistName: "Dj Marina",
+              musicGenre: "jazz",
               date: "1/5/2020",
-              numberMaxFans: 1,
               imgBase64: "https://i.picsum.photos/id/34/300/200.jpg"
             }
           ]
@@ -70,14 +69,24 @@ class Concerts extends Component {
       });
   }
 
+  removeConcert = (index) => {
+
+    let concertsUpdated = this.state.concerts
+
+    concertsUpdated.splice(index, 1);
+
+    this.setState({
+      concerts: concertsUpdated
+    })
+  }
+
   render() {
     return (
       <div id="concerts">
-        <NewConcert genre={this.state.genre}/>
 
         {this.state.genre != null ? (
           this.state.concerts.map((concertData, i) => (
-            <Concert concertData={concertData} key={i} />
+            <Concert concertData={concertData} removeConcert={this.removeConcert} index={i} key={i} />
           ))
         ) : (
           <div>Sorry, no concerts for this given genre!</div>

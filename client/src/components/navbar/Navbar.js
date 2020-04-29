@@ -9,10 +9,10 @@ class Navbar extends Component {
         <div className="row">
           <div id="navbar" className="col-md-12">
             <nav className="nav-item col-12-md navebar navbar-light bg-light">
-              <a href="404.html" className="navbar-brand">NosALONE</a>
+              <a href="/" className="navbar-brand">NosALONE</a>
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a href="#" className="nav-link">I'm an Artist</a>
+                  <a href="/form" className="nav-link">I'm an Artist</a>
                 </li>
 
               </ul>

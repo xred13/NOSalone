@@ -4,7 +4,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Default404 from './components/default404/Default404';
 import Navbar from './components/navbar/Navbar';
 import "./sass/root/Root.scss";
-import NewConcert from './components/homepage/concerts/NewConcert';
+import NewConcert from './components/concert_form/NewConcert';
 
 function App() {
     return (

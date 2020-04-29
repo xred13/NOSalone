@@ -17,8 +17,10 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import axios from "axios";
+
 const Concert = props => {
-  const { artistName, concertName, date, numberMaxFans, imgBase64 } = props.concertData;
+  const { artistName, concertName, musicGenre, date, imgBase64 } = props.concertData;
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -50,6 +52,27 @@ const Concert = props => {
     setExpanded(!expanded);
   };
 
+  const buyConcert = () => {
+
+    let params = {
+        "date": date,
+        "artistName": artistName,
+        "concertName": concertName,
+    }
+
+    axios.get("http://localhost:8080/NosAlone/concert/buyconcert", {params})
+      .then(response => {
+        console.log("bought concert! :)")
+      })
+      .catch(response => {
+        console.log("oops, something went wrong!")
+        console.log(response)
+      })
+
+    props.removeConcert(props.index);
+
+  }
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -69,7 +92,7 @@ const Concert = props => {
       <CardMedia className={classes.media} image={imgBase64} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Amazing show do Jaime: {concertName} Vagas: {numberMaxFans}
+          Amazing show do Jaime: {concertName}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -79,7 +102,7 @@ const Concert = props => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <button variant="outlined" className="btn btn-danger">
+        <button onClick={buyConcert} variant="outlined" className="btn btn-danger">
           BUY NOW
         </button>
         <IconButton

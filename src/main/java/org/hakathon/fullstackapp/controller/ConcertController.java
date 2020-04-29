@@ -7,11 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -21,12 +19,19 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ConcertController {
 
-
     private ConcertRepository concertRepository;
-
 
     public ConcertController(ConcertRepository concertRepository) {
         this.concertRepository = concertRepository;
+    }
+
+    @GetMapping("/buyconcert")
+    public void buyConcert(@RequestParam(value = "artistName") String artistName, @RequestParam(value = "concertName") String concertName){
+
+        Concert concertBought = ((Collection<Concert>) concertRepository.findAll()).stream().filter(concert -> concert.getConcertName().equals(concertName) && concert.getArtistName().equals(artistName)).collect(Collectors.toList()).get(0);
+
+        concertRepository.delete(concertBought);
+
     }
 
     @GetMapping("/concerts")
@@ -34,25 +39,37 @@ public class ConcertController {
 
         Collection<Concert> concertCollection = ((Collection<Concert>) concertRepository.findAll()).stream().filter(concert -> concert.getMusicGenre().equals(musicGenre)).collect(Collectors.toList());
 
+        Concert[] concertArray = concertCollection.toArray(new Concert[concertCollection.size()]);
+
+        // delete concerts that have expired from the repository and remove them from the current concertCollection
+        for (int i = 0; i < concertArray.length; i++) {
+            if(concertArray[i].getDate().compareTo(Calendar.getInstance()) <= 0){
+                concertRepository.delete(concertArray[i]);
+                concertArray[i] = null;
+            }
+        }
+
         Collection<ConcertDTO> concertDTOCollection = new ArrayList<>();
 
-        for (Concert concert : concertCollection) {
-            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getNumberMaxFans(), concert.getArtistName(), concert.getConcertName(), concert.getMusicGenre(), concert.getImgBase64()));
+        for (Concert concert : concertArray) {
+            if(concert == null){
+                continue;
+            }
+            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getArtistName(), concert.getConcertName(), concert.getMusicGenre(), concert.getImgBase64()));
         }
 
         return concertDTOCollection;
     }
 
-    @PostMapping("/concerts")
+    @PostMapping("/create")
     ResponseEntity<Concert> createConcert(@Valid @RequestBody ConcertDTO concertDTO) throws URISyntaxException {
 
-        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getNumberMaxFans(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
+        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
 
         Concert result = concertRepository.save(concert);
 
         return ResponseEntity.ok().body(result);
     }
-
 
     @GetMapping("/musicGenre")
     Collection<String> musicGenre() {

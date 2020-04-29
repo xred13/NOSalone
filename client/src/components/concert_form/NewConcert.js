@@ -6,8 +6,8 @@ class NewConcert extends Component {
   state = {
     artistName: "",
     concertName: "",
+    musicGenre: "",
     date: "",
-    numberMaxFans: 1,
     image: null,
   };
 
@@ -59,11 +59,11 @@ class NewConcert extends Component {
       "numberMaxFans": this.state.slots,
       "artistName": this.state.artistName,
       "concertName": this.state.concertName,
-      "musicGenre": this.props.genre,
+      "musicGenre": this.state.musicGenre,
       "imgBase64": imageBase64
     };
 
-    axios.post("http://localhost:8080/NosAlone/concert/concerts", body, headers)
+    axios.post("http://localhost:8080/NosAlone/concert/create", body, headers)
       .then((response) => {
         console.log("Form sent successfully!");
         console.log(response);
@@ -96,6 +96,15 @@ class NewConcert extends Component {
               onChange={this.handleChange}
             />
           </label>
+          <label>
+            Music Genre:
+            <input
+              type="text"
+              name="musicGenre"
+              value={this.state.musicGenre}
+              onChange={this.handleChange}
+            />
+          </label>
           <br />
           <label>
             Date:
@@ -103,16 +112,6 @@ class NewConcert extends Component {
               type="datetime-local"
               name="date"
               value={this.state.date}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Slots:
-            <input
-              type="number"
-              name="numberMaxFans"
-              value={this.state.numberMaxFans}
               onChange={this.handleChange}
             />
           </label>
