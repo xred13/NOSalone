@@ -83,12 +83,12 @@ class Concerts extends Component {
   render() {
     return (
       <div id="concerts">
-        {this.state.genre != null ? (
+        {this.state.concerts.length !== 0 ? (
           this.state.concerts.map((concertData, i) => (
             <Concert concertData={concertData} removeConcert={this.removeConcert} index={i} key={i} />
           ))
         ) : (
-          <div>Sorry, no concerts for this given genre!</div>
+          <div id="no-concerts-warning">Sorry, no concerts for this given genre!</div>
         )}
       </div>
     );

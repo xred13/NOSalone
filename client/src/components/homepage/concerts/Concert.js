@@ -16,11 +16,19 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import "./../../../sass/homepage/concerts/Concerts.scss";
 
 import axios from "axios";
 
 const Concert = props => {
-  const { artistName, concertName, musicGenre, date, imgBase64 } = props.concertData;
+  const {
+    artistName,
+    concertName,
+    description,
+    date,
+    price,
+    imgBase64
+  } = props.concertData;
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -76,11 +84,11 @@ const Concert = props => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} id="concert">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            Artist
+            <img src="https://i.picsum.photos/id/1072/40/40.jpg" />
           </Avatar>
         }
         action={
@@ -91,10 +99,14 @@ const Concert = props => {
         title={artistName}
         subheader={date}
       />
-      <CardMedia className={classes.media} image={imgBase64} title="Paella dish" />
+      <CardMedia
+        className={classes.media}
+        image={imgBase64}
+        title="Paella dish"
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Amazing show do Jaime: {concertName}
+          Concert name: {concertName}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -107,11 +119,11 @@ const Concert = props => {
         <button
           variant="outlined"
           onClick={buyConcert}
-          className="btn btn-danger"
+          className="btn buy-btn"
           data-toggle="modal"
           data-target="#exampleModal"
         >
-          BUY NOW
+          BUY NOW {price}€
         </button>
         <IconButton
           className={clsx(classes.expand, {
@@ -126,21 +138,7 @@ const Concert = props => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large
-          </Typography>
-
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
+          <Typography paragraph>{description}</Typography>
         </CardContent>
       </Collapse>
     </Card>

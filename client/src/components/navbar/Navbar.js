@@ -32,13 +32,17 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <a href="/">NOS Alone</a>
+            <a className="navbar-text" href="/">NOS alone'20</a>
           </Typography>
-          <Button href="/form" color="inherit">
-            Add a concert
+          <Button href="/form">
+            <div className="navbar-text">
+              Add a concert
+            </div>
           </Button>
-          <Button href="/login" color="inherit">
-            Login
+          <Button href="/login">
+            <div className="navbar-text">
+              Login
+            </div>
           </Button>
         </Toolbar>
       </AppBar>

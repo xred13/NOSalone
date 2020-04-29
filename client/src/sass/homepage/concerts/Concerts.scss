@@ -1,8 +1,16 @@
-/*
 #concerts{
-    height: 100%;
-    width:70%;
-    background-color: rgb(184, 116, 116);
+    display: inline-block;
+    width: 100%;
+    text-align: center;
 }
 
-*/
+#concert{
+    display: inline-block;
+    margin: 20px;
+}
+
+#no-concerts-warning{
+    font-size: 35px;
+    color: white;
+    text-align: center;
+}

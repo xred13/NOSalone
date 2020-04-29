@@ -10,5 +10,14 @@
 }
 
 #navbar .MuiAppBar-colorPrimary {
-  background-color: #011a27;
+  background-color: black;
+}
+
+.navbar-text{
+  color: white;
+
+  &:hover{
+    color:rgb(36, 163, 110);
+    text-decoration: none;
+  }
 }

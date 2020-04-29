@@ -111,16 +111,16 @@ class NewConcert extends Component {
                   <div className="form-group">
                     <select id="inputState" class="form-control" name="musicGenre" value={this.state.musicGenre} onChange={this.handleChange}>
                       <option selected> Choose Music Genre</option>
-                      <option>Acoustic</option>
-                      <option>Chill</option>
-                      <option>Classic</option>
-                      <option>Eletronic</option>
-                      <option>HipHop</option>
-                      <option>Jazz</option>
-                      <option>Pop</option>
-                      <option>Reggae</option>
-                      <option>Rock</option>
-                      <option>Soul</option>
+                      <option value="acoustic">Acoustic</option>
+                      <option value="chill">Chill</option>
+                      <option value="classic">Classic</option>
+                      <option value="electronic">Eletronic</option>
+                      <option value="hiphop">HipHop</option>
+                      <option value="jazz">Jazz</option>
+                      <option value="pop">Pop</option>
+                      <option value="reggae">Reggae</option>
+                      <option value="rock">Rock</option>
+                      <option value="soul">Soul</option>
                     </select>
                   </div>
 

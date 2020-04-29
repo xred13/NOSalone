@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100, 200, 300, 400, 500, 600, 700,800, 900");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: ‘Poppins’, sans-serif;
+}
+body {
+  background: linear-gradient(45deg, #011a27, #063852);
+  height: 100vh;
+}
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background: url(‘./../../resources/404.jpg), #011a27;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+#container .content {
+  max-width: 600px;
+  text-align: center;
+}
+#container .content h2 {
+  font-size: 18vw;
+  color: #f0810f;
+  line-height: 1em;
+}
+#container .content h4 {
+  position: relative;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #f0810f;
+  font-weight: 300;
+  padding: 10px 20px;
+  display: inline-block;
+}
+.container .content h3 {
+  color: #f0810f;
+  font-size: 1.2em;
+}
+.movie {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.movie iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
