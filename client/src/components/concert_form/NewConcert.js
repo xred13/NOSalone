@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ImageUploader from "react-images-upload";
+import "./../../sass/concert_form/NewConcert.scss";
 
 class NewConcert extends Component {
   state = {
@@ -9,6 +10,8 @@ class NewConcert extends Component {
     musicGenre: "",
     date: "",
     image: null,
+    price: 50,
+    description: ""
   };
 
   handleChange = (event) => {
@@ -53,14 +56,16 @@ class NewConcert extends Component {
     let headers = {
       "Content-Type": "application/json",
     };
-    
+
     let body = {
       "date": this.state.date,
       "numberMaxFans": this.state.slots,
       "artistName": this.state.artistName,
       "concertName": this.state.concertName,
       "musicGenre": this.state.musicGenre,
-      "imgBase64": imageBase64
+      "price": this.state.price,
+      "imgBase64": imageBase64,
+      "description": this.state.description
     };
 
     axios.post("http://localhost:8080/NosAlone/concert/create", body, headers)
@@ -76,60 +81,110 @@ class NewConcert extends Component {
 
   render() {
     return (
-      <div id="new-concert">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Artist Name:
-            <input
-              type="text"
-              name="artistName"
-              value={this.state.artistName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Concert Name:
-            <input 
-              type="text"
-              name="concertName"
-              value={this.state.concertName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Music Genre:
-            <input
-              type="text"
-              name="musicGenre"
-              value={this.state.musicGenre}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Date:
-            <input
-              type="datetime-local"
-              name="date"
-              value={this.state.date}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Image:
-            <ImageUploader
-              withIcon={true}
-              buttonText="Choose image"
-              onChange={this.handleImageChange}
-              imgExtension={[".jpg", ".gif", ".png"]}
-              maxFileSize={5242880}
-              singleImage={true}
-            />
-          </label>
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="container">
+        <div id="new-concert">
+          <div className="row justify-content-center myfirst">
+            <div>
+              <div>
+                <form onSubmit={this.handleSubmit}>
+
+                  <div className="form-group">
+                    <input className="ArtistName"
+                      placeholder="  Artist Name"
+                      type="text"
+                      name="artistName"
+                      value={this.state.artistName}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input className="ConcertName"
+                      placeholder="  Concert Name"
+                      type="text"
+                      name="concertName"
+                      value={this.state.concertName}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <select id="inputState" class="form-control" name="musicGenre" value={this.state.musicGenre} onChange={this.handleChange}>
+                      <option selected> Choose Music Genre</option>
+                      <option>Acoustic</option>
+                      <option>Chill</option>
+                      <option>Classic</option>
+                      <option>Eletronic</option>
+                      <option>HipHop</option>
+                      <option>Jazz</option>
+                      <option>Pop</option>
+                      <option>Reggae</option>
+                      <option>Rock</option>
+                      <option>Soul</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <textarea 
+                      placeholder="Concert Description" 
+                      className="form-control" 
+                      id="exampleFormControlTextarea1" 
+                      rows="3"
+                      name="description"
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                    >
+                    </textarea>
+                  </div>
+
+                  <div className="d-flex justify-content-center my-4 pt-3">
+                    <span className="font-weight-bold indigo-text mr-2 mt-1"><i className="fas fa-dollar-sign" aria-hidden="true"></i>0€</span>
+                    <div id="price"> 
+                      {this.state.price}€
+                    </div>
+                    <form className="range-field w-75" >
+                      <input className="border-0" id="price-slider" 
+                      name="price"
+                      type="range" 
+                      min="0" max="100" 
+                      value={this.state.price} 
+                      onChange={this.handleChange} />
+                    </form>
+                    <span class="font-weight-bold indigo-text ml-2 mt-1"><i className="fas fa-euro-sign" aria-hidden="true"> 100€</i></span>
+                  </div>
+
+                  <div className="form-group">
+                    <div className="date">
+                      <label for="exampleFormControlSelect1"></label>
+                      <input
+                        className="Date"
+                        type="datetime-local"
+                        name="date"
+                        value={this.state.date}
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <label id="upload">
+                    <ImageUploader
+                      withIcon={true}
+                      buttonText="Upload Image"
+                      onChange={this.handleImageChange}
+                      imgExtension={[".jpg", ".gif.png"]}
+                      maxFileSize={5242880}
+                      singleImage={true}
+                    />
+                  </label>
+                  <br />
+                  <input type="submit" class="btn btn-outline-secondary"></input>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -55,7 +55,7 @@ public class ConcertController {
             if(concert == null){
                 continue;
             }
-            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getArtistName(), concert.getConcertName(), concert.getMusicGenre(), concert.getImgBase64()));
+            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getArtistName(), concert.getConcertName(), concert.getDescription(), concert.getPrice(), concert.getMusicGenre(), concert.getImgBase64()));
         }
 
         return concertDTOCollection;
@@ -64,7 +64,7 @@ public class ConcertController {
     @PostMapping("/create")
     ResponseEntity<Concert> createConcert(@Valid @RequestBody ConcertDTO concertDTO) throws URISyntaxException {
 
-        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
+        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getDescription(), concertDTO.getPrice(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
 
         Concert result = concertRepository.save(concert);
 

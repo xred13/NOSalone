@@ -24,8 +24,8 @@ public class DemoLoader implements CommandLineRunner {
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DAY_OF_MONTH, 1);
 
-        this.concertRepository.save(new Concert(tomorrow, "JAIMAO", "ShowDoJaime", "rock","https://picsum.photos/200/300"));
-        this.concertRepository.save(new Concert(tomorrow, "BENNAZI", "Show2", "jazz","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(tomorrow, "JAIMAO", "ShowDoJaime","Some description", 60, "rock","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(tomorrow, "BENNAZI", "Show2", "another amazing description", 1,"jazz","https://picsum.photos/200/300"));
     }
 
 
