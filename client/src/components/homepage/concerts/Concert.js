@@ -62,7 +62,7 @@ const Concert = props => {
 
   const buyConcert = () => {
 
-    alert("You bought a concert :)")
+    alert("You will soon be contacted with information regarding your private concert!")
 
     let params = {
         "date": date,
