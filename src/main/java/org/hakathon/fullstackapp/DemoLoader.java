@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,8 +34,8 @@ public class DemoLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         this.artistRepository.save(new Artist("Jaime","Verde", "jaime@verde.pt"));
         this.fanRepository.save(new Fan("Mariana", "Marçal", "maria@gmail.com"));
-        this.concertRepository.save(new Concert(2020, 7, 30, 14,30 ,5, "ShowDoJaime", "rock","https://picsum.photos/200/300"));
-        this.concertRepository.save(new Concert(2020,8,04, 21,45,7, "Show2", "jazz","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(Calendar.getInstance(), 2, "JAIMAO", "ShowDoJaime", "rock","https://picsum.photos/200/300"));
+        this.concertRepository.save(new Concert(Calendar.getInstance(), 1, "BENNAZI", "Show2", "jazz","https://picsum.photos/200/300"));
     }
 
 

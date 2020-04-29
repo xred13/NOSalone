@@ -4,10 +4,10 @@ import ImageUploader from "react-images-upload";
 
 class NewConcert extends Component {
   state = {
-    concertName: "",
     artistName: "",
+    concertName: "",
     date: "",
-    slots: null,
+    numberMaxFans: 1,
     image: null,
   };
 
@@ -44,7 +44,6 @@ class NewConcert extends Component {
 
   handleSubmit = async (event) => {
     alert("Concert submited!");
-    event.preventDefault();
 
     let imageBase64 = null;
     await this.getBase64(this.state.image).then((result) => {
@@ -56,11 +55,12 @@ class NewConcert extends Component {
     };
     
     let body = {
-      "date": "2020-08-30T13:30:54.504+0000",
-      "numberMaxFans": 1,
-      "name": "jaimao",
-      "musicGenre": "rock",
-      "imgURL": imageBase64,
+      "date": this.state.date,
+      "numberMaxFans": this.state.slots,
+      "artistName": this.state.artistName,
+      "concertName": this.state.concertName,
+      "musicGenre": this.props.genre,
+      "imgBase64": imageBase64
     };
 
     axios.post("http://localhost:8080/NosAlone/concert/concerts", body, headers)
@@ -79,16 +79,6 @@ class NewConcert extends Component {
       <div id="new-concert">
         <form onSubmit={this.handleSubmit}>
           <label>
-            Concert Name:
-            <input
-              type="text"
-              name="concertName"
-              value={this.state.concertName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
             Artist Name:
             <input
               type="text"
@@ -97,11 +87,20 @@ class NewConcert extends Component {
               onChange={this.handleChange}
             />
           </label>
+          <label>
+            Concert Name:
+            <input 
+              type="text"
+              name="concertName"
+              value={this.state.concertName}
+              onChange={this.handleChange}
+            />
+          </label>
           <br />
           <label>
             Date:
             <input
-              type="text"
+              type="datetime-local"
               name="date"
               value={this.state.date}
               onChange={this.handleChange}
@@ -112,8 +111,8 @@ class NewConcert extends Component {
             Slots:
             <input
               type="number"
-              name="slots"
-              value={this.state.slots}
+              name="numberMaxFans"
+              value={this.state.numberMaxFans}
               onChange={this.handleChange}
             />
           </label>

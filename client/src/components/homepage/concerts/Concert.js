@@ -18,7 +18,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const Concert = props => {
-  const { artistName, date, slots, image } = props.concertData;
+  const { artistName, concertName, date, numberMaxFans, imgBase64 } = props.concertData;
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -66,10 +66,10 @@ const Concert = props => {
         title={artistName}
         subheader={date}
       />
-      <CardMedia className={classes.media} image={image} title="Paella dish" />
+      <CardMedia className={classes.media} image={imgBase64} title="Paella dish" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Amazing show do Jaime
+          Amazing show do Jaime: {concertName} Vagas: {numberMaxFans}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
