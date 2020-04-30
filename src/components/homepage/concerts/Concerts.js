@@ -5,10 +5,22 @@ import "./../../../sass/homepage/concerts/Concerts.scss";
 
 class Concerts extends Component {
   state = {
-    genre: null,
+    genre: "classic",
     concerts: []
   };
 
+  componentDidMount = () => {
+    let params = { musicGenre: this.state.genre };
+    axios
+      .get("http://localhost:8080/NosAlone/concert/concerts", { params })
+      .then(response => {
+        this.setState({ concerts: response.data });
+      })
+      .catch(response => {
+        console.log("oops, something went wrong!");
+        console.log(response);
+      });
+  };
   componentWillReceiveProps = nextProps => {
     if (nextProps.currentGenre === null) {
       return;
@@ -69,26 +81,32 @@ class Concerts extends Component {
       });
   };
 
-  removeConcert = (index) => {
-
-    let concertsUpdated = this.state.concerts
+  removeConcert = index => {
+    let concertsUpdated = this.state.concerts;
 
     concertsUpdated.splice(index, 1);
 
     this.setState({
       concerts: concertsUpdated
-    })
-  }
+    });
+  };
 
   render() {
     return (
       <div id="concerts">
         {this.state.concerts.length !== 0 ? (
           this.state.concerts.map((concertData, i) => (
-            <Concert concertData={concertData} removeConcert={this.removeConcert} index={i} key={i} />
+            <Concert
+              concertData={concertData}
+              removeConcert={this.removeConcert}
+              index={i}
+              key={i}
+            />
           ))
         ) : (
-          <div id="no-concerts-warning">Sorry, no concerts for this given genre!</div>
+          <div id="no-concerts-warning">
+            Sorry, no concerts for this given genre!
+          </div>
         )}
       </div>
     );

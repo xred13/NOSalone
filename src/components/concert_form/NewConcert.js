@@ -14,20 +14,20 @@ class NewConcert extends Component {
     description: ""
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
   };
 
-  handleImageChange = (image) => {
+  handleImageChange = image => {
     this.setState({
-      image: image[0],
+      image: image[0]
     });
   };
 
-  getBase64 = (file) => {
-    return new Promise((resolve) => {
+  getBase64 = file => {
+    return new Promise(resolve => {
       let baseURL = "";
       // Make new FileReader
       let reader = new FileReader();
@@ -45,35 +45,36 @@ class NewConcert extends Component {
     });
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = async event => {
     alert("Concert submited!");
 
     let imageBase64 = null;
-    await this.getBase64(this.state.image).then((result) => {
+    await this.getBase64(this.state.image).then(result => {
       imageBase64 = result;
     });
 
     let headers = {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     };
 
     let body = {
-      "date": this.state.date,
-      "numberMaxFans": this.state.slots,
-      "artistName": this.state.artistName,
-      "concertName": this.state.concertName,
-      "musicGenre": this.state.musicGenre,
-      "price": this.state.price,
-      "imgBase64": imageBase64,
-      "description": this.state.description
+      date: this.state.date,
+      numberMaxFans: this.state.slots,
+      artistName: this.state.artistName,
+      concertName: this.state.concertName,
+      musicGenre: this.state.musicGenre,
+      price: this.state.price,
+      imgBase64: imageBase64,
+      description: this.state.description
     };
 
-    axios.post("http://localhost:8080/NosAlone/concert/create", body, headers)
-      .then((response) => {
+    axios
+      .post("http://localhost:8080/NosAlone/concert/create", body, headers)
+      .then(response => {
         console.log("Form sent successfully!");
         console.log(response);
       })
-      .catch((response) => {
+      .catch(response => {
         console.log("oops, something went wrong!");
         console.log(response);
       });
@@ -87,9 +88,9 @@ class NewConcert extends Component {
             <div>
               <div>
                 <form onSubmit={this.handleSubmit}>
-
                   <div className="form-group">
-                    <input className="ArtistName"
+                    <input
+                      className="ArtistName"
                       placeholder="  Artist Name"
                       type="text"
                       name="artistName"
@@ -100,7 +101,8 @@ class NewConcert extends Component {
                   </div>
 
                   <div className="form-group">
-                    <input className="ConcertName"
+                    <input
+                      className="ConcertName"
                       placeholder="  Concert Name"
                       type="text"
                       name="concertName"
@@ -111,15 +113,18 @@ class NewConcert extends Component {
                   </div>
 
                   <div className="form-group">
-                    <select 
-                      id="inputState" 
-                      class="form-control" 
-                      name="musicGenre" 
-                      value={this.state.musicGenre} 
+                    <select
+                      id="inputState"
+                      class="form-control"
+                      name="musicGenre"
+                      value={this.state.musicGenre}
                       onChange={this.handleChange}
                       required
                     >
-                      <option selected value=""> Choose Music Genre</option>
+                      <option selected value="">
+                        {" "}
+                        Choose Music Genre
+                      </option>
                       <option value="acoustic">Acoustic</option>
                       <option value="chill">Chill</option>
                       <option value="classic">Classic</option>
@@ -134,33 +139,42 @@ class NewConcert extends Component {
                   </div>
 
                   <div className="form-group">
-                    <textarea 
-                      placeholder="Concert Description" 
-                      className="form-control" 
-                      id="exampleFormControlTextarea1" 
+                    <textarea
+                      placeholder="Concert Description"
+                      className="form-control"
+                      id="exampleFormControlTextarea1"
                       rows="3"
                       name="description"
                       value={this.state.description}
                       onChange={this.handleChange}
                       required
-                    >
-                    </textarea>
+                    ></textarea>
                   </div>
 
                   <div className="d-flex justify-content-center my-4 pt-3">
-                    <span className="font-weight-bold indigo-text mr-2 mt-1"><i className="fas fa-dollar-sign" aria-hidden="true"></i>0€</span>
-                    <div id="price"> 
-                      {this.state.price}€
-                    </div>
-                    <form className="range-field w-75" >
-                      <input className="border-0" id="price-slider" 
-                      name="price"
-                      type="range" 
-                      min="0" max="100" 
-                      value={this.state.price} 
-                      onChange={this.handleChange} />
+                    <span className="font-weight-bold indigo-text mr-2 mt-1">
+                      <i className="fas fa-dollar-sign" aria-hidden="true"></i>
+                      0€
+                    </span>
+                    <div id="price">{this.state.price}€</div>
+                    <form className="range-field w-75">
+                      <input
+                        className="border-0"
+                        id="price-slider"
+                        name="price"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={this.state.price}
+                        onChange={this.handleChange}
+                      />
                     </form>
-                    <span class="font-weight-bold indigo-text ml-2 mt-1"><i className="fas fa-euro-sign" aria-hidden="true"> 100€</i></span>
+                    <span class="font-weight-bold indigo-text ml-2 mt-1">
+                      <i className="fas fa-euro-sign" aria-hidden="true">
+                        {" "}
+                        100€
+                      </i>
+                    </span>
                   </div>
 
                   <div className="form-group">
@@ -189,8 +203,10 @@ class NewConcert extends Component {
                     />
                   </label>
                   <br />
-                  <input type="submit" class="btn btn-outline-secondary"></input>
-
+                  <input
+                    type="submit"
+                    class="btn btn-outline-secondary"
+                  ></input>
                 </form>
               </div>
             </div>
