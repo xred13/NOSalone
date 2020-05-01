@@ -61,27 +61,31 @@ const Concert = props => {
   };
 
   const buyConcert = () => {
-
-    alert("You will soon be contacted with information regarding your private concert!")
+    alert(
+      "You will soon be contacted with information regarding your private concert!"
+    );
 
     let params = {
-        "date": date,
-        "artistName": artistName,
-        "concertName": concertName,
-    }
+      date: date,
+      artistName: artistName,
+      concertName: concertName
+    };
 
-    axios.get("http://localhost:8080/NosAlone/concert/buyconcert", {params})
+    axios
+      .get(
+        "https://rest-api-nosalone.herokuapp.com/nosalone/concert/buyconcert",
+        { params }
+      )
       .then(response => {
-        console.log("bought concert! :)")
+        console.log("bought concert! :)");
       })
       .catch(response => {
-        console.log("oops, something went wrong!")
-        console.log(response)
-      })
+        console.log("oops, something went wrong!");
+        console.log(response);
+      });
 
     props.removeConcert(props.index);
-
-  }
+  };
 
   return (
     <Card className={classes.root} id="concert">

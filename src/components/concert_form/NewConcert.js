@@ -69,7 +69,11 @@ class NewConcert extends Component {
     };
 
     axios
-      .post("http://localhost:8080/NosAlone/concert/create", body, headers)
+      .post(
+        "https://rest-api-nosalone.herokuapp.com/nosalone/concert/create",
+        body,
+        headers
+      )
       .then(response => {
         console.log("Form sent successfully!");
         console.log(response);

@@ -12,7 +12,10 @@ class Concerts extends Component {
   componentDidMount = () => {
     let params = { musicGenre: this.state.genre };
     axios
-      .get("http://localhost:8080/NosAlone/concert/concerts", { params })
+      .get(
+        "https://rest-api-nosalone.herokuapp.com/nosalone/concert/concerts",
+        { params }
+      )
       .then(response => {
         this.setState({ concerts: response.data });
       })
@@ -35,7 +38,10 @@ class Concerts extends Component {
     };
 
     axios
-      .get("http://localhost:8080/NosAlone/concert/concerts", { params })
+      .get(
+        "https://rest-api-nosalone.herokuapp.com/nosalone/concert/concerts",
+        { params }
+      )
       .then(response => {
         this.setState({
           concerts: response.data
