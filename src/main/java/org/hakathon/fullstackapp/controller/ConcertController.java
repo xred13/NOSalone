@@ -1,83 +1,57 @@
 package org.hakathon.fullstackapp.controller;
 
-import org.hakathon.fullstackapp.dtos.ConcertDTO;
-import org.hakathon.fullstackapp.model.Concert;
-import org.hakathon.fullstackapp.repository.ConcertRepository;
-import org.springframework.http.ResponseEntity;
+import io.jsonwebtoken.Jwts;
+import org.hakathon.fullstackapp.models.Concert;
+import org.hakathon.fullstackapp.services.ConcertService;
+import org.hakathon.fullstackapp.utils.JWTHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.lang.reflect.Array;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/NosAlone/concert")
+@RequestMapping(ConcertController.PATH)
 @CrossOrigin(origins = "http://localhost:3000")
 public class ConcertController {
 
-    private ConcertRepository concertRepository;
+    public static final String PATH = "/concerts";
 
-    public ConcertController(ConcertRepository concertRepository) {
-        this.concertRepository = concertRepository;
+    public static final String BUY_CONCERT_PATH = "/buy";
+    public static final String GET_CONCERTS_OF_GENRE_PATH = "/get-concerts-of-genre";
+    public static final String CREATE_CONCERT_PATH = "/create";
+
+    public static final Set<String> SECURED_PATHS = new HashSet<>(Arrays.asList(
+            PATH + BUY_CONCERT_PATH,
+            PATH + CREATE_CONCERT_PATH
+    ));
+
+    private ConcertService concertService;
+
+    @Autowired
+    public ConcertController(ConcertService concertService){
+        this.concertService = concertService;
     }
 
-    @GetMapping("/buyconcert")
-    public void buyConcert(@RequestParam(value = "artistName") String artistName, @RequestParam(value = "concertName") String concertName){
+    @GetMapping(BUY_CONCERT_PATH)
+    public void buyConcert(@RequestBody long concertId, @CookieValue("JWT") String jwtToken){
 
-        Concert concertBought = ((Collection<Concert>) concertRepository.findAll()).stream().filter(concert -> concert.getConcertName().equals(concertName) && concert.getArtistName().equals(artistName)).collect(Collectors.toList()).get(0);
+        String buyerName = Jwts.parser().parseClaimsJws(jwtToken).getSignature();
+        System.out.println(buyerName);
 
-        concertRepository.delete(concertBought);
+        concertService.buyConcert(concertId, buyerName);
 
     }
 
-    @GetMapping("/concerts")
-    Collection<ConcertDTO> concerts(@RequestParam(value = "musicGenre") String musicGenre) {
-
-        Collection<Concert> concertCollection = ((Collection<Concert>) concertRepository.findAll()).stream().filter(concert -> concert.getMusicGenre().equals(musicGenre)).collect(Collectors.toList());
-
-        Concert[] concertArray = concertCollection.toArray(new Concert[concertCollection.size()]);
-
-        // delete concerts that have expired from the repository and remove them from the current concertCollection
-        for (int i = 0; i < concertArray.length; i++) {
-            if(concertArray[i].getDate().compareTo(Calendar.getInstance()) <= 0){
-                concertRepository.delete(concertArray[i]);
-                concertArray[i] = null;
-            }
-        }
-
-        Collection<ConcertDTO> concertDTOCollection = new ArrayList<>();
-
-        for (Concert concert : concertArray) {
-            if(concert == null){
-                continue;
-            }
-            concertDTOCollection.add(new ConcertDTO(concert.getDate(), concert.getArtistName(), concert.getConcertName(), concert.getDescription(), concert.getPrice(), concert.getMusicGenre(), concert.getImgBase64()));
-        }
-
-        return concertDTOCollection;
+    @GetMapping(GET_CONCERTS_OF_GENRE_PATH)
+    public Collection<Concert> getConcertsOfGenre(@RequestBody String musicGenre) {
+        return concertService.getConcertsOfGenre(musicGenre);
     }
 
-    @PostMapping("/create")
-    ResponseEntity<Concert> createConcert(@Valid @RequestBody ConcertDTO concertDTO) throws URISyntaxException {
-
-        Concert concert = new Concert(concertDTO.getDate(), concertDTO.getArtistName(), concertDTO.getConcertName(), concertDTO.getDescription(), concertDTO.getPrice(), concertDTO.getMusicGenre(), concertDTO.getImgBase64());
-
-        Concert result = concertRepository.save(concert);
-
-        return ResponseEntity.ok().body(result);
+    @PostMapping(CREATE_CONCERT_PATH)
+    public void createConcert(@RequestBody Concert concert) throws URISyntaxException {
+        concertService.createConcert(concert);
     }
-
-    @GetMapping("/musicGenre")
-    Collection<String> musicGenre() {
-        List<String> allMusicGenre = new LinkedList<>();
-        allMusicGenre.add("rock");
-        allMusicGenre.add("jazz");
-        return allMusicGenre;
-    }
-
 
 }

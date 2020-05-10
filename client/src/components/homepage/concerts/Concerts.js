@@ -23,7 +23,7 @@ class Concerts extends Component {
     };
 
     axios
-      .get("http://localhost:8080/NosAlone/concert/concerts", { params })
+      .get("http://localhost:8080/concerts/get-concerts-of-genre", { params })
       .then(response => {
         this.setState({
           concerts: response.data
@@ -32,40 +32,6 @@ class Concerts extends Component {
       .catch(response => {
         console.log("oops, something went wrong!");
         console.log(response);
-
-        console.log("inserting default values for concerts");
-        this.setState({
-          concerts: [
-            {
-              concertName: "First concert",
-              artistName: "Dj jaime",
-              musicGenre: "rock",
-              date: "30/4/2020",
-              imgBase64: "https://i.picsum.photos/id/434/300/200.jpg"
-            },
-            {
-              concertName: "second greatest concert",
-              artistName: "Dj Fábio",
-              musicGenre: "rock",
-              date: "1/5/2020",
-              imgBase64: "https://i.picsum.photos/id/790/300/200.jpg"
-            },
-            {
-              concertName: "second greatest concert",
-              artistName: "Dj Nunes",
-              musicGenre: "rock",
-              date: "1/5/2020",
-              imgBase64: "https://i.picsum.photos/id/349/300/200.jpg"
-            },
-            {
-              concertName: "second greatest concert",
-              artistName: "Dj Marina",
-              musicGenre: "jazz",
-              date: "1/5/2020",
-              imgBase64: "https://i.picsum.photos/id/34/300/200.jpg"
-            }
-          ]
-        });
       });
   };
 

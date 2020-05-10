@@ -47,6 +47,7 @@ class NewConcert extends Component {
 
   handleSubmit = async (event) => {
     alert("Concert submited!");
+    event.preventDefault();
 
     let imageBase64 = null;
     await this.getBase64(this.state.image).then((result) => {

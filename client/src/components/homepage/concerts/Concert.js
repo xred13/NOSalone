@@ -70,7 +70,7 @@ const Concert = props => {
         "concertName": concertName,
     }
 
-    axios.get("http://localhost:8080/NosAlone/concert/buyconcert", {params})
+    axios.get("http://localhost:8080/api/concerts/buy", {params})
       .then(response => {
         console.log("bought concert! :)")
       })
