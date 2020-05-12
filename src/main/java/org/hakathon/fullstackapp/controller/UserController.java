@@ -10,7 +10,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping(UserController.PATH)
@@ -20,7 +24,13 @@ public class UserController {
     public static final String PATH = "/users";
 
     public static final String LOGIN_PATH = "/login";
+    public static final String LOGOUT_PATH = "/logout";
     public static final String CREATE_PATH = "/register";
+
+    public static final Set<String> SECURED_PATHS = new HashSet<>(Arrays.asList(
+            PATH + LOGOUT_PATH,
+            PATH + CREATE_PATH
+    ));
 
     private UserService userService;
 
@@ -41,6 +51,13 @@ public class UserController {
         }
 
         return false;
+
+    }
+
+    @CrossOrigin(allowCredentials = "true")
+    @GetMapping(LOGOUT_PATH)
+    public void logout(HttpServletResponse httpServletResponse){
+        httpServletResponse.addCookie(JWTHelper.createNullTokenCookie());
 
     }
 

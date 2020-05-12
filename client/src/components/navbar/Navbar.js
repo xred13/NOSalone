@@ -7,45 +7,32 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import "../../sass/navbar/Navbar.scss";
+import {connect} from "react-redux";
+import NavbarVisual from "./NavbarVisual";
+import {setLoggedInAction} from "./../../actions/loggedInActions";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+class Navbar extends Component{
+  
+  render(){
 
-const dosomething = () => {
-  console.log("CLICKED :)");
-};
+    return(
+      <NavbarVisual isLoggedIn={this.props.isLoggedIn} setLoggedIn={this.props.setLoggedIn} />
+    );
 
-export default function ButtonAppBar() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root} id="navbar">
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <a className="navbar-text" href="/">NOS alone'20</a>
-          </Typography>
-          <Button href="/form">
-            <div className="navbar-text">
-              Add a concert
-            </div>
-          </Button>
-          <Button href="/login">
-            <div className="navbar-text">
-              Login
-            </div>
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setLoggedIn: (status) => dispatch(setLoggedInAction(status))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    isLoggedIn: state.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+

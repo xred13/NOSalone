@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {connect} from "react-redux";
+import {setLoggedInAction} from "./../../actions/loggedInActions";
+import {LogIn} from "../authentication_manager/AuthenticationManager";
 
 class Login extends Component {
   state = {
@@ -13,45 +16,12 @@ class Login extends Component {
     });
   };
 
-  handleSubmit = async (event) => {
-    alert("Concert submited!");
+  handleSubmit = event => {
+
     event.preventDefault();
 
-    let headers = {
-      "Content-Type": "application/json",
-      withCredentials: true
-    };
+    LogIn(this.props.setLoggedIn, this.state.username, this.state.password);
 
-    let body = {
-        name: this.state.username,
-        password: this.state.password
-    };
-
-    axios.request({
-      url: "http://localhost:8080/users/login",
-      method: "POST",
-      withCredentials: true,
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      data: {
-        name: this.state.username,
-        password: this.state.password
-      }
-    });
-
-    /*
-    axios.post("http://localhost:8080/users/login", body, headers)
-      .then((response) => {
-        console.log("Form sent successfully!");
-        console.log(response);
-      })
-      .catch((response) => {
-        console.log("oops, something went wrong!");
-        console.log(response);
-      }); */
   };
 
   render() {
@@ -97,4 +67,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoggedIn: (status) => dispatch(setLoggedInAction(status))
+  }
+}
+
+export default connect(undefined, mapDispatchToProps)(Login);

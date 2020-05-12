@@ -40,6 +40,14 @@ public class JWTHelper {
 
     }
 
+    public static Cookie createNullTokenCookie(){
+        Cookie cookie = new Cookie("JWT", null);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        return cookie;
+    }
+
     public static Jws<Claims> checkTokenValidity(String compactToken) throws SignatureException{
 
         return Jwts.parser().setSigningKey(key).parseClaimsJws(compactToken);
