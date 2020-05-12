@@ -1,6 +1,8 @@
 package org.hakathon.fullstackapp.controller;
 
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultJwtParser;
+import org.hakathon.fullstackapp.dtos.ConcertBuyDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.services.ConcertService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
@@ -34,24 +36,30 @@ public class ConcertController {
         this.concertService = concertService;
     }
 
-    @GetMapping(BUY_CONCERT_PATH)
-    public void buyConcert(@RequestBody long concertId, @CookieValue("JWT") String jwtToken){
+    @PostMapping(BUY_CONCERT_PATH)
+    public void buyConcert(@RequestBody ConcertBuyDTO concertBuyDTO, @CookieValue("JWT") String jwtToken){
 
-        String buyerName = Jwts.parser().parseClaimsJws(jwtToken).getSignature();
-        System.out.println(buyerName);
+        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+        
+        String buyerName = body.getSubject();
 
-        concertService.buyConcert(concertId, buyerName);
+        concertService.buyConcert(concertBuyDTO.getId(), buyerName);
 
     }
 
     @GetMapping(GET_CONCERTS_OF_GENRE_PATH)
-    public Collection<Concert> getConcertsOfGenre(@RequestBody String musicGenre) {
+    public Collection<Concert> getConcertsOfGenre(@RequestParam String musicGenre) {
         return concertService.getConcertsOfGenre(musicGenre);
     }
 
     @PostMapping(CREATE_CONCERT_PATH)
-    public void createConcert(@RequestBody Concert concert) throws URISyntaxException {
-        concertService.createConcert(concert);
+    public void createConcert(@RequestBody Concert concert, @CookieValue("JWT") String jwtToken) {
+        
+        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+
+        String buyerName = body.getSubject();
+
+        concertService.createConcert(concert, buyerName);
     }
 
 }

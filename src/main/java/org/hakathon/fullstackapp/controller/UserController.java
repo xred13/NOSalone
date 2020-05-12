@@ -1,10 +1,12 @@
 package org.hakathon.fullstackapp.controller;
 
+import com.sun.net.httpserver.Headers;
 import org.hakathon.fullstackapp.dtos.UserLoginDTO;
 import org.hakathon.fullstackapp.dtos.UserRegisterDTO;
 import org.hakathon.fullstackapp.services.UserService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -27,6 +29,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin(allowCredentials = "true")
     @PostMapping(LOGIN_PATH)
     public boolean login(@RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse){
 

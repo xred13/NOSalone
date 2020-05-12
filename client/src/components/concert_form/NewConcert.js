@@ -69,7 +69,7 @@ class NewConcert extends Component {
       "description": this.state.description
     };
 
-    axios.post("http://localhost:8080/NosAlone/concert/create", body, headers)
+    axios.post("http://localhost:8080/concerts/create", body, headers)
       .then((response) => {
         console.log("Form sent successfully!");
         console.log(response);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
@@ -22,8 +23,7 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-
-        filterChain.doFilter(servletRequest, servletResponse);
+        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
         String servletPath = httpServletRequest.getServletPath();
 
@@ -41,8 +41,8 @@ public class AuthenticationFilter implements Filter {
 
                         Jws<Claims> jwsClaims = JWTHelper.checkTokenValidity(cookie.getValue());
 
-                        //replace token with a new one to update date
-                        JWTHelper.createToken(jwsClaims.getBody().getSubject());
+                        //replace cookie with a new one with updated expiration date
+                        httpServletResponse.addCookie(JWTHelper.createTokenCookie(jwsClaims.getBody().getSubject()));
 
                         filterChain.doFilter(servletRequest, servletResponse);
 
@@ -52,6 +52,8 @@ public class AuthenticationFilter implements Filter {
                     }
                 }
             }
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 }

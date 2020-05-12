@@ -3,6 +3,7 @@ package org.hakathon.fullstackapp.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -31,7 +32,7 @@ public class Concert {
     private User artist;
 
     @ManyToMany
-    private Collection<User> audience;
+    private Collection<User> audience = new ArrayList<>();
 
     @Lob
     private String imgBase64;
@@ -144,13 +145,14 @@ public class Concert {
         this.imgBase64 = imgBase64;
     }
 
-    public boolean buy(){
+    public boolean buy(User buyer){
 
         if(!isBuyable()){
             return false;
         }
 
         decrementSlotsRemaining();
+        audience.add(buyer);
         return true;
     }
 

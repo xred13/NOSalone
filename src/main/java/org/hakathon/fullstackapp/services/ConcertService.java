@@ -19,7 +19,7 @@ public class ConcertService {
     private UserDAO userDAO;
 
     @Autowired
-    public ConcertService(ConcertDAO concertDAO, UserDAO userDAO){
+    public ConcertService(ConcertDAO concertDAO, UserDAO userDAO) {
         this.concertDAO = concertDAO;
         this.userDAO = userDAO;
     }
@@ -27,25 +27,22 @@ public class ConcertService {
     public boolean buyConcert(long id, String buyerName) {
 
         Optional<Concert> optionalConcert = concertDAO.get(id);
+        Optional<User> optionalUser = userDAO.get(buyerName);
 
-        if (!optionalConcert.isPresent()) {
+        if (!optionalConcert.isPresent() || !optionalUser.isPresent()) {
             return false;
         }
 
         Concert concert = optionalConcert.get();
+        User buyer = optionalUser.get();
 
-        if(concert.buy()){
+
+        if (concert.buy(buyer)) {
+
+            buyer.buyConcert(concert);
+
             concertDAO.save(concert);
-
-            Optional<User> optionalUser = userDAO.get(buyerName);
-
-            if(optionalUser.isPresent()){
-                User buyer = optionalUser.get();
-
-                buyer.buyConcert(concert);
-
-                userDAO.save(buyer);
-            }
+            userDAO.save(buyer);
 
             return true;
         }
@@ -54,12 +51,25 @@ public class ConcertService {
 
     }
 
-    public Collection<Concert> getConcertsOfGenre(String genre){
+    public Collection<Concert> getConcertsOfGenre(String genre) {
         return concertDAO.get(genre);
     }
 
-    public void createConcert(Concert concert){
+    public void createConcert(Concert concert, String concertCreatorName) {
+
         concertDAO.save(concert);
+
+        Optional<User> optionalUser = userDAO.get(concertCreatorName);
+
+        if(!optionalUser.isPresent()){
+            return;
+        }
+
+        User creator = optionalUser.get();
+
+        creator.addOwnConcert(concert);
+
+        userDAO.save(creator);
     }
 
 }

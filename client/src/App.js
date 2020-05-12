@@ -6,6 +6,7 @@ import Navbar from "./components/navbar/Navbar";
 import Banner from "./components/banner/Banner";
 import "./sass/root/Root.scss";
 import NewConcert from './components/concert_form/NewConcert';
+import Login from "./components/login/Login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route exact path="/" component={HomePage} />
 
       <Route exact path="/form" component={NewConcert} />
+      <Route exact path="/login" component={Login} />
       <Route exact path="/....." component={Default404} />
     </BrowserRouter>
   );

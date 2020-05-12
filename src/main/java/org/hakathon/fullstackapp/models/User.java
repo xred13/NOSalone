@@ -3,6 +3,7 @@ package org.hakathon.fullstackapp.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -22,10 +23,10 @@ public class User {
     private String password;
 
     @ManyToMany
-    private Collection<Concert> concertsBought;
+    private Collection<Concert> concertsBought = new ArrayList<>();
 
     @OneToMany
-    private Collection<Concert> concertsOwned;
+    private Collection<Concert> concertsOwned = new ArrayList<>();
 
     public User(){
 
@@ -87,5 +88,9 @@ public class User {
 
     public void buyConcert(Concert concert){
         concertsBought.add(concert);
+    }
+
+    public void addOwnConcert(Concert concert){
+        concertsOwned.add(concert);
     }
 }
