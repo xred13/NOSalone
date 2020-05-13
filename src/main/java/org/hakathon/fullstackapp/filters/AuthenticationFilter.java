@@ -31,6 +31,10 @@ public class AuthenticationFilter implements Filter {
 
             Cookie[] cookies = httpServletRequest.getCookies();
 
+            if(cookies == null){
+                return;
+            }
+
             for (int i = 0; i < cookies.length; i++) {
 
                 Cookie cookie = cookies[i];

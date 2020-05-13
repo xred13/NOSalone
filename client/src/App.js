@@ -6,8 +6,9 @@ import Banner from "./components/banner/Banner";
 import "./sass/root/Root.scss";
 import NewConcert from "./components/concert_form/NewConcert";
 import Login from "./components/login/Login";
-import Test from "./components/navbar/NavbarVisual";
 import Navbar from "./components/navbar/Navbar";
+import MyProfile from "./components/my_profile/MyProfile";
+import Register from "./components/register/Register";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
 
         <Route path="/form" component={NewConcert} />
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/myprofile" component={MyProfile} />
 
         <Route component={Default404} />
 

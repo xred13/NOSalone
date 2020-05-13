@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"artist", "audience"})
 public class Concert {
 
 
@@ -28,10 +30,10 @@ public class Concert {
 
     private Calendar performanceDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User artist;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<User> audience = new ArrayList<>();
 
     @Lob

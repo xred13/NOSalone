@@ -6,7 +6,7 @@ class Banner extends Component {
     return (
       <div className="row">
         <div className="col-md-12 banner">
-          <img id="banner-img" src="/images/bannerHome.png"></img>
+          <img id="banner-img" src="/images/bannerHome.png" alt="NOSalone"></img>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp.models;
 
+import javassist.expr.Cast;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,10 +23,10 @@ public class User {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<Concert> concertsBought = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<Concert> concertsOwned = new ArrayList<>();
 
     public User(){

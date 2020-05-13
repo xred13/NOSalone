@@ -8,6 +8,7 @@ import org.hakathon.fullstackapp.repositories.ConcertRepository;
 import org.hakathon.fullstackapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
@@ -19,10 +20,13 @@ public class DemoLoader implements CommandLineRunner {
 
     private UserDAO userDao;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public DemoLoader(UserDAO userDao, ConcertDAO concertDao){
+    public DemoLoader(UserDAO userDao, ConcertDAO concertDao, PasswordEncoder passwordEncoder){
         this.userDao = userDao;
         this.concertDao = concertDao;
+        this.passwordEncoder = passwordEncoder;
     }
     @Override
     public void run(String... strings) throws Exception {
@@ -30,24 +34,19 @@ public class DemoLoader implements CommandLineRunner {
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DAY_OF_MONTH, 1);
 
-        User artist = new User("xred", "xred@mail.com", "password");
+        User artist = new User("xred", "xred@mail.com", passwordEncoder.encode("password"));
 
-        artist = userDao.save(artist);
-
-        Concert concert1 = concertDao.save(new Concert("Best concert ever!", "description goes here", "rock", 6, 60, tomorrow, artist, "no image"));
-        artist.addOwnConcert(concert1);
+        artist.addOwnConcert(new Concert("Best concert ever!", "description goes here", "rock", 6, 60, tomorrow, artist, "https://picsum.photos/200/300"));
 
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DAY_OF_MONTH, -1);
 
-        Concert concert2 = concertDao.save(new Concert("Best concert ever!2", "description goes here2", "rock", 62, 62, yesterday, artist, "no image"));
-        artist.addOwnConcert(concert2);
+        artist.addOwnConcert(new Concert("Best concert ever!2", "description goes here2", "rock", 62, 62, yesterday, artist, "https://picsum.photos/200/300"));
 
         Calendar todayIn2Hours = Calendar.getInstance();
         todayIn2Hours.add(Calendar.HOUR, 2);
 
-        Concert concert3 = concertDao.save(new Concert("Best concert ever3", "description goes here2", "rock", 62, 62, todayIn2Hours, artist, "no image"));
-        artist.addOwnConcert(concert3);
+        artist.addOwnConcert(new Concert("Best concert ever3", "description goes here2", "rock", 62, 62, todayIn2Hours, artist, "https://picsum.photos/200/300"));
 
         userDao.save(artist);
 

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import MusicGenres from "./music_genres/MusicGenres";
 import "./../../sass/homepage//Homepage.scss";
 import Concerts from "./concerts/Concerts";
-import axios from "axios";
 
 class HomePage extends Component {
   state = {

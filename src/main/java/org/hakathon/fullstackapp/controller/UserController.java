@@ -25,11 +25,10 @@ public class UserController {
 
     public static final String LOGIN_PATH = "/login";
     public static final String LOGOUT_PATH = "/logout";
-    public static final String CREATE_PATH = "/register";
+    public static final String REGISTER_PATH = "/register";
 
     public static final Set<String> SECURED_PATHS = new HashSet<>(Arrays.asList(
-            PATH + LOGOUT_PATH,
-            PATH + CREATE_PATH
+            PATH + LOGOUT_PATH
     ));
 
     private UserService userService;
@@ -58,10 +57,9 @@ public class UserController {
     @GetMapping(LOGOUT_PATH)
     public void logout(HttpServletResponse httpServletResponse){
         httpServletResponse.addCookie(JWTHelper.createNullTokenCookie());
-
     }
 
-    @PostMapping(CREATE_PATH)
+    @PostMapping(REGISTER_PATH)
     public boolean register(@RequestBody UserRegisterDTO userRegisterDTO){
         return userService.register(userRegisterDTO);
     }

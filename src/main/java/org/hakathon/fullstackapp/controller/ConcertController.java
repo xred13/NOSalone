@@ -1,16 +1,14 @@
 package org.hakathon.fullstackapp.controller;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.impl.DefaultJwtParser;
 import org.hakathon.fullstackapp.dtos.ConcertBuyDTO;
+import org.hakathon.fullstackapp.dtos.ConcertGetOfGenreDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.services.ConcertService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.URISyntaxException;
 import java.util.*;
 
 @RestController
@@ -23,10 +21,14 @@ public class ConcertController {
     public static final String BUY_CONCERT_PATH = "/buy";
     public static final String GET_CONCERTS_OF_GENRE_PATH = "/get-concerts-of-genre";
     public static final String CREATE_CONCERT_PATH = "/create";
+    public static final String GET_OWNED_CONCERTS_OF_USER_PATH = "/get-owned-concerts-of-user";
+    public static final String GET_BOUGHT_CONCERTS_OF_USER_PATH = "/get-bought-concerts-of-user";
 
     public static final Set<String> SECURED_PATHS = new HashSet<>(Arrays.asList(
             PATH + BUY_CONCERT_PATH,
-            PATH + CREATE_CONCERT_PATH
+            PATH + CREATE_CONCERT_PATH,
+            PATH + GET_OWNED_CONCERTS_OF_USER_PATH,
+            PATH + GET_BOUGHT_CONCERTS_OF_USER_PATH
     ));
 
     private ConcertService concertService;
@@ -47,9 +49,33 @@ public class ConcertController {
 
     }
 
-    @GetMapping(GET_CONCERTS_OF_GENRE_PATH)
-    public Collection<Concert> getConcertsOfGenre(@RequestParam String musicGenre) {
-        return concertService.getConcertsOfGenre(musicGenre);
+    @PostMapping(GET_CONCERTS_OF_GENRE_PATH)
+    public Collection<Concert> getConcertsOfGenre(@RequestBody ConcertGetOfGenreDTO concertGetOfGenreDTO) {
+        return concertService.getConcertsOfGenre(concertGetOfGenreDTO.getGenre());
+    }
+
+    @CrossOrigin(allowCredentials = "true")
+    @GetMapping(GET_OWNED_CONCERTS_OF_USER_PATH)
+    public Collection<Concert> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken){
+
+        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+
+        String userName = body.getSubject();
+
+        return concertService.getConcertsOwnedOfUser(userName);
+
+    };
+
+    @CrossOrigin(allowCredentials = "true")
+    @GetMapping(GET_BOUGHT_CONCERTS_OF_USER_PATH)
+    public Collection<Concert> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken){
+
+        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+
+        String userName = body.getSubject();
+
+        return concertService.getConcertsBoughtOfUser(userName);
+
     }
 
     @PostMapping(CREATE_CONCERT_PATH)

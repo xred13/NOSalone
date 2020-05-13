@@ -5,11 +5,10 @@ import org.hakathon.fullstackapp.dtos.UserRegisterDTO;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
-import javax.persistence.RollbackException;
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Service
@@ -17,9 +16,12 @@ public class UserService {
 
     private UserDAO userDAO;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean logIn(String username, String password) {
@@ -30,7 +32,7 @@ public class UserService {
 
             User user = optionalUser.get();
 
-            return user.getPassword().equals(password);
+            return passwordEncoder.matches(password, user.getPassword());
 
         }
 
@@ -40,9 +42,11 @@ public class UserService {
 
     public boolean register(UserRegisterDTO userRegisterDTO) {
 
+        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getEmail(), passwordEncoder.encode(userRegisterDTO.getPassword()));
+
         try {
 
-            userDAO.save(userRegisterDTO.createUser());
+            userDAO.save(user);
             return true;
 
         } catch (DataIntegrityViolationException e){

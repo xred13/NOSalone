@@ -1,13 +1,11 @@
-import React, { Component, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import "../../sass/navbar/Navbar.scss";
-import {LogOut} from "./../authentication_manager/AuthenticationManager";
+import { LogOut } from "./../authentication_manager/AuthenticationManager";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,14 +36,22 @@ export default function ButtonAppBar(props) {
               <Button href="/form">
                 <div className="navbar-text">Add a concert</div>
               </Button>
+              <Button href="/myprofile">
+                <div className="navbar-text">MyProfile</div>
+              </Button>
               <Button onClick={() => LogOut(props.setLoggedIn)}>
                 <div className="navbar-text">Logout</div>
               </Button>
             </React.Fragment>
           ) : (
-            <Button href="/login">
-              <div className="navbar-text">Login</div>
-            </Button>
+            <React.Fragment>
+              <Button href="/login">
+                <div className="navbar-text">Login</div>
+              </Button>
+              <Button href="/register">
+                <div className="navbar-text">Register</div>
+              </Button>
+            </React.Fragment>
           )}
         </Toolbar>
       </AppBar>

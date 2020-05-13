@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { setLoggedInAction } from "./../../actions/loggedInActions";
-import { LogIn } from "../authentication_manager/AuthenticationManager";
+import {CreateAccount} from "./../authentication_manager/AuthenticationManager";
 
-class Login extends Component {
+class Register extends Component {
   state = {
-    username: "",
-    password: "",
+      username: "",
+      email: "",
+      password: ""
   };
 
   handleChange = (event) => {
@@ -16,8 +15,9 @@ class Login extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
-    LogIn(this.props.setLoggedIn, this.state.username, this.state.password);
+      event.preventDefault();
+    CreateAccount( this.state.username, this.state.email, this.state.password);
+        
   };
 
   render() {
@@ -32,6 +32,17 @@ class Login extends Component {
                   type="text"
                   name="username"
                   value={this.state.username}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <input
+                  placeholder="  Email"
+                  type="email"
+                  name="email"
+                  value={this.state.email}
                   onChange={this.handleChange}
                   required
                 />
@@ -60,10 +71,4 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setLoggedIn: (status) => dispatch(setLoggedInAction(status)),
-  };
-};
-
-export default connect(undefined, mapDispatchToProps)(Login);
+export default Register;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.RollbackException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
@@ -70,6 +71,33 @@ public class ConcertService {
         creator.addOwnConcert(concert);
 
         userDAO.save(creator);
+    }
+
+    public Collection<Concert> getConcertsOwnedOfUser(String username){
+
+        Optional<User> optionalUser = userDAO.get(username);
+
+        if(!optionalUser.isPresent()){
+            return new ArrayList<>();
+        }
+
+        User user = optionalUser.get();
+
+        return user.getConcertsOwned();
+    }
+
+    public Collection<Concert> getConcertsBoughtOfUser(String username){
+
+        Optional<User> optionalUser = userDAO.get(username);
+
+        if(!optionalUser.isPresent()){
+            return new ArrayList<>();
+        }
+
+        User user = optionalUser.get();
+
+        return user.getConcertsBought();
+
     }
 
 }

@@ -2,6 +2,7 @@ package org.hakathon.fullstackapp.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultJwtParser;
+import org.hakathon.fullstackapp.controller.UserController;
 
 import javax.servlet.http.Cookie;
 import java.util.Calendar;
@@ -41,11 +42,11 @@ public class JWTHelper {
     }
 
     public static Cookie createNullTokenCookie(){
-        Cookie cookie = new Cookie("JWT", null);
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        return cookie;
+        Cookie jwtCookie = new Cookie("JWT", null);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setMaxAge(0);
+        jwtCookie.setPath("/");
+        return jwtCookie;
     }
 
     public static Jws<Claims> checkTokenValidity(String compactToken) throws SignatureException{

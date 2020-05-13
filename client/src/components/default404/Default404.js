@@ -18,6 +18,7 @@ class Default404 extends Component {
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
+                title="The show must go on - Queen"
               ></iframe>
             </div>
           </div>

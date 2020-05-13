@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Concert from "./Concert";
+import ConcertCard from "../../concert_card/ConcertCard";
 import axios from "axios";
 import "./../../../sass/homepage/concerts/Concerts.scss";
 
@@ -10,6 +10,7 @@ class Concerts extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
+
     if (nextProps.currentGenre === null) {
       return;
     }
@@ -18,21 +19,32 @@ class Concerts extends Component {
       genre: nextProps.currentGenre
     });
 
-    let params = {
-      musicGenre: nextProps.currentGenre
-    };
+    axios.request({
+      url: "http://localhost:8080/concerts/get-concerts-of-genre",
+      method: "POST",
 
-    axios
-      .get("http://localhost:8080/concerts/get-concerts-of-genre", { params })
-      .then(response => {
-        this.setState({
-          concerts: response.data
-        });
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      data:{
+        genre: nextProps.currentGenre
+      }
+
+    }).then((response) => {
+
+      console.log("Fetched concerts of genre successfully!")
+
+      this.setState({
+        concerts: response.data
       })
-      .catch(response => {
-        console.log("oops, something went wrong!");
-        console.log(response);
-      });
+
+    }).catch((response) => {
+
+      console.log("Something went wrong!")
+
+    });
+
   };
 
   removeConcert = (index) => {
@@ -51,7 +63,7 @@ class Concerts extends Component {
       <div id="concerts">
         {this.state.concerts.length !== 0 ? (
           this.state.concerts.map((concertData, i) => (
-            <Concert concertData={concertData} removeConcert={this.removeConcert} index={i} key={i} />
+            <ConcertCard concertData={concertData} displayedInProfile={false} removeConcert={this.removeConcert} index={i} key={i} />
           ))
         ) : (
           <div id="no-concerts-warning">Sorry, no concerts for this given genre!</div>

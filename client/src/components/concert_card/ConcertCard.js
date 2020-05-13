@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -16,19 +16,24 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import "./../../../sass/homepage/concerts/Concerts.scss";
 
 import axios from "axios";
 
-const Concert = props => {
+const ConcertCard = props => {
+
   const {
     artistName,
     concertName,
     description,
-    date,
+    performanceDate,
     price,
-    imgBase64
+    slots,
+    slotsRemaining,
+    imgBase64,
+    id
   } = props.concertData;
+
+  const displayedInProfile = props.displayedInProfile;
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -62,22 +67,28 @@ const Concert = props => {
 
   const buyConcert = () => {
 
-    alert("You will soon be contacted with information regarding your private concert!")
-
-    let params = {
-        "date": date,
-        "artistName": artistName,
-        "concertName": concertName,
+    if(displayedInProfile){
+      return;
     }
 
-    axios.get("http://localhost:8080/api/concerts/buy", {params})
-      .then(response => {
-        console.log("bought concert! :)")
-      })
-      .catch(response => {
-        console.log("oops, something went wrong!")
-        console.log(response)
-      })
+    alert("You will soon be contacted with information regarding your private concert!")
+
+    axios.request({
+      url: "http://localhost:8080/api/concerts/buy",
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      data: {
+        id: id
+      }
+    }).then(response => {
+      alert("Concert successfully bought!")
+    }).catch(response => {
+      alert("oops, something went wrong when buying the concert!")
+    });
 
     props.removeConcert(props.index);
 
@@ -97,7 +108,7 @@ const Concert = props => {
           </IconButton>
         }
         title={artistName}
-        subheader={date}
+        subheader={performanceDate}
       />
       <CardMedia
         className={classes.media}
@@ -145,4 +156,4 @@ const Concert = props => {
   );
 };
 
-export default Concert;
+export default ConcertCard;
