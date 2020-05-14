@@ -2,6 +2,7 @@ package org.hakathon.fullstackapp.controller;
 
 import io.jsonwebtoken.*;
 import org.hakathon.fullstackapp.dtos.ConcertBuyDTO;
+import org.hakathon.fullstackapp.dtos.ConcertCreateDTO;
 import org.hakathon.fullstackapp.dtos.ConcertGetOfGenreDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.services.ConcertService;
@@ -9,11 +10,11 @@ import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
 @RequestMapping(ConcertController.PATH)
-@CrossOrigin(origins = "http://localhost:3000")
 public class ConcertController {
 
     public static final String PATH = "/concerts";
@@ -54,7 +55,6 @@ public class ConcertController {
         return concertService.getConcertsOfGenre(concertGetOfGenreDTO.getGenre());
     }
 
-    @CrossOrigin(allowCredentials = "true")
     @GetMapping(GET_OWNED_CONCERTS_OF_USER_PATH)
     public Collection<Concert> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken){
 
@@ -66,7 +66,6 @@ public class ConcertController {
 
     };
 
-    @CrossOrigin(allowCredentials = "true")
     @GetMapping(GET_BOUGHT_CONCERTS_OF_USER_PATH)
     public Collection<Concert> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken){
 
@@ -79,13 +78,13 @@ public class ConcertController {
     }
 
     @PostMapping(CREATE_CONCERT_PATH)
-    public void createConcert(@RequestBody Concert concert, @CookieValue("JWT") String jwtToken) {
+    public void createConcert(@RequestBody ConcertCreateDTO concertCreateDTO, @CookieValue("JWT") String jwtToken) {
         
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String buyerName = body.getSubject();
 
-        concertService.createConcert(concert, buyerName);
+        concertService.createConcert(concertCreateDTO, buyerName);
     }
 
 }

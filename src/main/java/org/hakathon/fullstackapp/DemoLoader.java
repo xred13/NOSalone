@@ -36,7 +36,7 @@ public class DemoLoader implements CommandLineRunner {
 
         User artist = new User("xred", "xred@mail.com", passwordEncoder.encode("password"));
 
-        artist.addOwnConcert(new Concert("Best concert ever!", "description goes here", "rock", 6, 60, tomorrow, artist, "https://picsum.photos/200/300"));
+        artist.addOwnConcert(new Concert("Best concert ever!", "description goes here", "rock", 1, 60, tomorrow, artist, "https://picsum.photos/200/300"));
 
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DAY_OF_MONTH, -1);

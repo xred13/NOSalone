@@ -5,13 +5,13 @@ import "./../../sass/concert_form/NewConcert.scss";
 
 class NewConcert extends Component {
   state = {
-    artistName: "",
     concertName: "",
     musicGenre: "",
-    date: "",
+    performanceDate: "",
     image: null,
     price: 50,
-    description: ""
+    description: "",
+    slots: 0
   };
 
   handleChange = (event) => {
@@ -54,23 +54,26 @@ class NewConcert extends Component {
       imageBase64 = result;
     });
 
-    let headers = {
-      "Content-Type": "application/json",
-    };
+    axios.request({
+      url: "http://localhost:8080/concerts/create",
+      method: "POST",
+      withCredentials: true,
 
-    let body = {
-      "date": this.state.date,
-      "numberMaxFans": this.state.slots,
-      "artistName": this.state.artistName,
-      "concertName": this.state.concertName,
-      "musicGenre": this.state.musicGenre,
-      "price": this.state.price,
-      "imgBase64": imageBase64,
-      "description": this.state.description
-    };
+      headers:{
+        "Content-Type": "application/json",
+      },
 
-    axios.post("http://localhost:8080/concerts/create", body, headers)
-      .then((response) => {
+      data:{
+        "performanceDate": this.state.performanceDate,
+        "slots": this.state.slots,
+        "concertName": this.state.concertName,
+        "musicGenre": this.state.musicGenre,
+        "price": this.state.price,
+        "imgBase64": imageBase64,
+        "description": this.state.description
+      }
+
+    }).then((response) => {
         console.log("Form sent successfully!");
         console.log(response);
       })
@@ -88,17 +91,6 @@ class NewConcert extends Component {
             <div>
               <div>
                 <form onSubmit={this.handleSubmit}>
-
-                  <div className="form-group">
-                    <input className="ArtistName"
-                      placeholder="  Artist Name"
-                      type="text"
-                      name="artistName"
-                      value={this.state.artistName}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
 
                   <div className="form-group">
                     <input className="ConcertName"
@@ -165,13 +157,23 @@ class NewConcert extends Component {
                   </div>
 
                   <div className="form-group">
+                    <input className="slots"
+                      type="number"
+                      name="slots"
+                      value={this.state.slots}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
                     <div className="date">
                       <label for="exampleFormControlSelect1"></label>
                       <input
                         className="Date"
                         type="datetime-local"
-                        name="date"
-                        value={this.state.date}
+                        name="performanceDate"
+                        value={this.state.performanceDate}
                         onChange={this.handleChange}
                         required
                       />

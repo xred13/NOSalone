@@ -18,7 +18,6 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(UserController.PATH)
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     public static final String PATH = "/users";
@@ -38,7 +37,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @CrossOrigin(allowCredentials = "true")
     @PostMapping(LOGIN_PATH)
     public boolean login(@RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse){
 
@@ -53,7 +51,6 @@ public class UserController {
 
     }
 
-    @CrossOrigin(allowCredentials = "true")
     @GetMapping(LOGOUT_PATH)
     public void logout(HttpServletResponse httpServletResponse){
         httpServletResponse.addCookie(JWTHelper.createNullTokenCookie());

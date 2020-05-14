@@ -2,6 +2,7 @@ package org.hakathon.fullstackapp.services;
 
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
+import org.hakathon.fullstackapp.dtos.ConcertCreateDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,7 @@ public class ConcertService {
         return concertDAO.get(genre);
     }
 
-    public void createConcert(Concert concert, String concertCreatorName) {
-
-        concertDAO.save(concert);
+    public void createConcert(ConcertCreateDTO concertCreateDTO, String concertCreatorName) {
 
         Optional<User> optionalUser = userDAO.get(concertCreatorName);
 
@@ -67,6 +66,8 @@ public class ConcertService {
         }
 
         User creator = optionalUser.get();
+
+        Concert concert = new Concert(concertCreateDTO.getConcertName(), concertCreateDTO.getDescription(), concertCreateDTO.getMusicGenre(), concertCreateDTO.getSlots(), concertCreateDTO.getPrice(), concertCreateDTO.getPerformanceDate(), creator, concertCreateDTO.getImgBase64());
 
         creator.addOwnConcert(concert);
 
