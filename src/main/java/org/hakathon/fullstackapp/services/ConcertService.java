@@ -3,6 +3,7 @@ package org.hakathon.fullstackapp.services;
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
 import org.hakathon.fullstackapp.dtos.ConcertCreateDTO;
+import org.hakathon.fullstackapp.dtos.ConcertGetDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,17 @@ public class ConcertService {
 
     }
 
-    public Collection<Concert> getConcertsOfGenre(String genre) {
-        return concertDAO.get(genre);
+    public Collection<ConcertGetDTO> getConcertsOfGenre(String genre) {
+        Collection<Concert> concerts = concertDAO.get(genre);
+
+        Collection<ConcertGetDTO> concertGetDTOS = new ArrayList<>();
+
+        for (Concert concert : concerts) {
+            concertGetDTOS.add(new ConcertGetDTO(concert));
+        }
+
+        return concertGetDTOS;
+
     }
 
     public void createConcert(ConcertCreateDTO concertCreateDTO, String concertCreatorName) {
@@ -74,7 +84,7 @@ public class ConcertService {
         userDAO.save(creator);
     }
 
-    public Collection<Concert> getConcertsOwnedOfUser(String username){
+    public Collection<ConcertGetDTO> getConcertsOwnedOfUser(String username){
 
         Optional<User> optionalUser = userDAO.get(username);
 
@@ -84,10 +94,16 @@ public class ConcertService {
 
         User user = optionalUser.get();
 
-        return user.getConcertsOwned();
+        Collection<ConcertGetDTO> concerts = new ArrayList<>();
+
+        for (Concert concert : user.getConcertsOwned()) {
+            concerts.add(new ConcertGetDTO(concert));
+        }
+
+        return concerts;
     }
 
-    public Collection<Concert> getConcertsBoughtOfUser(String username){
+    public Collection<ConcertGetDTO> getConcertsBoughtOfUser(String username){
 
         Optional<User> optionalUser = userDAO.get(username);
 
@@ -97,7 +113,13 @@ public class ConcertService {
 
         User user = optionalUser.get();
 
-        return user.getConcertsBought();
+        Collection<ConcertGetDTO> concerts = new ArrayList<>();
+
+        for (Concert concert : user.getConcertsBought()) {
+            concerts.add(new ConcertGetDTO(concert));
+        }
+
+        return concerts;
 
     }
 

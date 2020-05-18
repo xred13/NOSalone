@@ -3,6 +3,7 @@ package org.hakathon.fullstackapp.controller;
 import io.jsonwebtoken.*;
 import org.hakathon.fullstackapp.dtos.ConcertBuyDTO;
 import org.hakathon.fullstackapp.dtos.ConcertCreateDTO;
+import org.hakathon.fullstackapp.dtos.ConcertGetDTO;
 import org.hakathon.fullstackapp.dtos.ConcertGetOfGenreDTO;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.services.ConcertService;
@@ -51,12 +52,12 @@ public class ConcertController {
     }
 
     @PostMapping(GET_CONCERTS_OF_GENRE_PATH)
-    public Collection<Concert> getConcertsOfGenre(@RequestBody ConcertGetOfGenreDTO concertGetOfGenreDTO) {
+    public Collection<ConcertGetDTO> getConcertsOfGenre(@RequestBody ConcertGetOfGenreDTO concertGetOfGenreDTO) {
         return concertService.getConcertsOfGenre(concertGetOfGenreDTO.getGenre());
     }
 
     @GetMapping(GET_OWNED_CONCERTS_OF_USER_PATH)
-    public Collection<Concert> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken){
+    public Collection<ConcertGetDTO> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken){
 
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
@@ -67,7 +68,7 @@ public class ConcertController {
     };
 
     @GetMapping(GET_BOUGHT_CONCERTS_OF_USER_PATH)
-    public Collection<Concert> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken){
+    public Collection<ConcertGetDTO> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken){
 
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
 

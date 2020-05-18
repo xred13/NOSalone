@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ImageUploader from "react-images-upload";
-import "./../../sass/concert_form/NewConcert.scss";
+import "../../sass/concert_form/NewConcert.scss";
 
 class NewConcert extends Component {
   state = {
