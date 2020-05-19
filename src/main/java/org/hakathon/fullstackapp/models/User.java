@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.expr.Cast;
 import lombok.Data;
 
@@ -7,20 +8,41 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Data
 @Entity
+@Table(
+        name = "users",
+        indexes = {
+                @Index(columnList = "name", name = "users_name")
+        }
+)
+@JsonIgnoreProperties({"concertsBought", "concertsOwned"})
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true)
+    @Version
+    private long version;
+
+    @Column(
+            unique = true,
+            nullable = false,
+            length = 15
+    )
     private String name;
 
-    @Column(unique = true)
+    @Column(
+            unique = true,
+            nullable = false,
+            length = 128
+    )
     private String email;
 
+    @Column(
+            nullable = false,
+            length = 128
+    )
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
