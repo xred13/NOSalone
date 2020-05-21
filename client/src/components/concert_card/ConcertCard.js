@@ -22,20 +22,23 @@ class ConcertCard extends Component {
   }
 
   buyConcert = () => {
-    axios.request({
-      url: "http://localhost:8080/concerts/buy",
-      method: "POST",
-      withCredentials: true,
+    axios
+      .request({
+        url: "http://localhost:8080/concerts/buy",
+        method: "POST",
+        withCredentials: true,
 
-      data:{
-        data: this.state.id
-      }
-    }).then(response => {
-      alert("Bought concert successfully!")
-    }).catch(error => {
-      alert("oops.... something has occurred!")
-    })
-  }
+        data: {
+          data: this.state.id,
+        },
+      })
+      .then((response) => {
+        alert("Bought concert successfully!");
+      })
+      .catch((error) => {
+        alert("oops.... something has occurred!");
+      });
+  };
 
   render() {
     return (
@@ -57,9 +60,11 @@ class ConcertCard extends Component {
           There are currently {this.state.slotsRemaining} / {this.state.slots}{" "}
           slots remaining!
         </div>
-        <button onClick={this.buyConcert} className="concert-card-buy-button">
-          Buy now! {this.state.price}€
-        </button>
+        {this.props.buyButtonEnabled === false ? null : (
+          <button onClick={this.buyConcert} className="concert-card-buy-button">
+            Buy now! {this.state.price}€
+          </button>
+        )}
       </div>
     );
   }

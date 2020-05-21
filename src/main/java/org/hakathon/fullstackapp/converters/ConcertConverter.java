@@ -15,13 +15,14 @@ public class ConcertConverter {
                 .setMusicGenre(concertDto.getMusicGenre())
                 .setPerformanceDate(concertDto.getPerformanceDate())
                 .setPrice(concertDto.getPrice())
-                .setSlots(concertDto.getPrice())
+                .setSlots(concertDto.getSlots())
                 .setSlotsRemaining(concertDto.getSlotsRemaining())
                 .build();
     }
 
     public static ConcertDto convert(Concert concert){
         return new ConcertDtoBuilder()
+                .setId(concert.getId())
                 .setArtistName(concert.getArtist() != null ? concert.getArtist().getName() : null)
                 .setName(concert.getName())
                 .setDescription(concert.getDescription())

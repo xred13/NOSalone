@@ -30,7 +30,7 @@ class MyConcerts extends Component {
           ? <div id="myprofile-myconcerts-noconcerts">It looks like you have no concert of your own!</div>
           : 
           this.state.concerts.map((concert, i) => (
-            <ConcertCard concertData={concert} displayedInProfile={true} key={i}/>
+            <ConcertCard concertData={concert} buyButtonEnabled={false} key={i}/>
           ))}
       </div>
     );

@@ -30,7 +30,7 @@ class ConcertsBought extends Component {
           </div>
         ) : (
           this.state.concerts.map((concert, i) => (
-            <ConcertCard concertData={concert} displayedInProfile={true} key={i} />
+            <ConcertCard concertData={concert} buyButtonEnabled={false} key={i} />
           ))
         )}
       </div>

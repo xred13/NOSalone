@@ -47,7 +47,7 @@ public class DemoLoader implements CommandLineRunner {
 
         Concert concert = new ConcertBuilder()
                 .setDescription("lololo")
-                .setImgBase64("nothing tosee here")
+                .setImgBase64("https://picsum.photos/seed/picsum/200/300")
                 .setMusicGenre("classic")
                 .setName("Summerland")
                 .setPerformanceDate(tomorrow)
