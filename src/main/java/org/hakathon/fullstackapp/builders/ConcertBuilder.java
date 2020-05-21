@@ -2,6 +2,7 @@ package org.hakathon.fullstackapp.builders;
 
 import org.hakathon.fullstackapp.dtos.ConcertDto;
 import org.hakathon.fullstackapp.models.Concert;
+import org.hakathon.fullstackapp.models.User;
 
 import java.util.Calendar;
 
@@ -15,6 +16,7 @@ public class ConcertBuilder {
     private int price;
     private Calendar performanceDate;
     private String imgBase64;
+    private User artist;
 
 
     public ConcertBuilder setName(String name) {
@@ -57,6 +59,11 @@ public class ConcertBuilder {
         return this;
     }
 
+    public ConcertBuilder setArtist(User artist){
+        this.artist = artist;
+        return this;
+    }
+
     public Concert build(){
 
         Concert concert = new Concert();
@@ -69,6 +76,7 @@ public class ConcertBuilder {
         concert.setPrice(price);
         concert.setSlots(slots);
         concert.setSlotsRemaining(slotsRemaining);
+        concert.setArtist(artist);
 
         return concert;
     }

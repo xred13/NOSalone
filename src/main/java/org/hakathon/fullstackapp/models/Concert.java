@@ -60,6 +60,7 @@ public class Concert {
     private User artist;
 
     @ManyToMany(
+            mappedBy = "concertsBought",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )

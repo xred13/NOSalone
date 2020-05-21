@@ -40,7 +40,7 @@ public class ConcertService {
 
         if (concert.buy(buyer)) {
 
-            buyer.getConcertsBought().add(concert);
+            buyer.addBoughtConcert(concert);
 
             concertDAO.save(concert);
             userDAO.save(buyer);
@@ -58,8 +58,6 @@ public class ConcertService {
         Collection<ConcertDto> concertDtos = new ArrayList<>();
 
         for (Concert concert : concerts) {
-            System.out.println(concert.getArtist().getName());
-            System.out.println(ConcertConverter.convert(concert).getArtistName());
             concertDtos.add(ConcertConverter.convert(concert));
         }
 
@@ -80,10 +78,9 @@ public class ConcertService {
         Concert concert = ConcertConverter.convert(concertDto);
 
         concert.setSlotsRemaining(concert.getSlots());
+        concert.setArtist(creator);
 
-        creator.getConcertsOwned().add(concert);
-
-        //creator.addOwnConcert(concert);
+        creator.addOwnConcert(concert);
 
         userDAO.save(creator);
     }

@@ -48,10 +48,24 @@ public class User {
     )
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     private Collection<Concert> concertsBought = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     private Collection<Concert> concertsOwned = new ArrayList<>();
+
+    public void addOwnConcert(Concert concert){
+        getConcertsOwned().add(concert);
+    }
+
+    public void addBoughtConcert(Concert concert){
+        getConcertsBought().add(concert);
+    }
 
 }
