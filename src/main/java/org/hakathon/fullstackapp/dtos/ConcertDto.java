@@ -1,13 +1,16 @@
 package org.hakathon.fullstackapp.dtos;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.models.Concert;
 
 import java.util.Calendar;
 
-@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class ConcertDto {
 
     private Long id;
@@ -15,7 +18,7 @@ public class ConcertDto {
     private String name;
     private String description;
 
-    private String musicGenre;
+    private MusicGenre musicGenre;
 
     private int slots;
     private int slotsRemaining;

@@ -1,6 +1,6 @@
 package org.hakathon.fullstackapp.services;
 
-import org.hakathon.fullstackapp.converters.UserConverter;
+import org.hakathon.fullstackapp.converters.UserDtoToUserConverter;
 import org.hakathon.fullstackapp.daos.UserDAO;
 import org.hakathon.fullstackapp.dtos.UserDto;
 import org.hakathon.fullstackapp.models.User;
@@ -43,7 +43,7 @@ public class UserService {
 
     public boolean register(UserDto userDto) {
 
-        User user = UserConverter.convert(userDto);
+        User user = UserDtoToUserConverter.convert(userDto);
 
         try {
 

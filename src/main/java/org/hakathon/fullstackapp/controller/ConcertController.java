@@ -3,10 +3,14 @@ package org.hakathon.fullstackapp.controller;
 import io.jsonwebtoken.*;
 import org.hakathon.fullstackapp.dtos.ConcertDto;
 import org.hakathon.fullstackapp.dtos.GenericContainerDto;
+import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.services.ConcertService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.*;
 
@@ -32,28 +36,30 @@ public class ConcertController {
     private ConcertService concertService;
 
     @Autowired
-    public ConcertController(ConcertService concertService){
+    public ConcertController(ConcertService concertService) {
         this.concertService = concertService;
     }
 
     @PostMapping(BUY_CONCERT_PATH)
-    public void buyConcert(@RequestBody GenericContainerDto<Long> idContainer, @CookieValue("JWT") String jwtToken){
+    public ResponseEntity<Void> buyConcert(@RequestBody GenericContainerDto<Long> idContainer, @CookieValue("JWT") String jwtToken) throws HttpClientErrorException{
 
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
-        
+
         String buyerName = body.getSubject();
 
         concertService.buyConcert(idContainer.getData(), buyerName);
+        return ResponseEntity.ok().build();
+
 
     }
 
     @PostMapping(GET_CONCERTS_OF_GENRE_PATH)
-    public Collection<ConcertDto> getConcertsOfGenre(@RequestBody GenericContainerDto<String> genreContainer) {
+    public Collection<ConcertDto> getConcertsOfGenre(@RequestBody GenericContainerDto<MusicGenre> genreContainer) {
         return concertService.getConcertsOfGenre(genreContainer.getData());
     }
 
     @GetMapping(GET_OWNED_CONCERTS_OF_USER_PATH)
-    public Collection<ConcertDto> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken){
+    public Collection<ConcertDto> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken) {
 
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
@@ -61,10 +67,12 @@ public class ConcertController {
 
         return concertService.getConcertsOwnedOfUser(userName);
 
-    };
+    }
+
+    ;
 
     @GetMapping(GET_BOUGHT_CONCERTS_OF_USER_PATH)
-    public Collection<ConcertDto> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken){
+    public Collection<ConcertDto> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken) {
 
         Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
 

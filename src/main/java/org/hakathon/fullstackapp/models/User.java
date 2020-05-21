@@ -2,15 +2,17 @@ package org.hakathon.fullstackapp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.expr.Cast;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(
         name = "users",
@@ -52,20 +54,22 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private Collection<Concert> concertsBought = new ArrayList<>();
+    @Builder.Default
+    private Collection<Concert> boughtConcerts = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private Collection<Concert> concertsOwned = new ArrayList<>();
+    @Builder.Default
+    private Collection<Concert> ownedConcerts = new ArrayList<>();
 
     public void addOwnConcert(Concert concert){
-        getConcertsOwned().add(concert);
+        ownedConcerts.add(concert);
     }
 
     public void addBoughtConcert(Concert concert){
-        getConcertsBought().add(concert);
+        boughtConcerts.add(concert);
     }
 
 }

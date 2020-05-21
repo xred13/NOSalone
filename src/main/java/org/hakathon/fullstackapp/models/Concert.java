@@ -1,16 +1,19 @@
 package org.hakathon.fullstackapp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hakathon.fullstackapp.enums.MusicGenre;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table
 @JsonIgnoreProperties({"artist", "audience"})
@@ -35,10 +38,9 @@ public class Concert {
     private String description;
 
     @Column(
-            length = 20,
             nullable = false
     )
-    private String musicGenre;
+    private MusicGenre musicGenre;
 
     private int slots;
     private int slotsRemaining;
@@ -60,11 +62,12 @@ public class Concert {
     private User artist;
 
     @ManyToMany(
-            mappedBy = "concertsBought",
+            mappedBy = "boughtConcerts",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private Collection<User> audience = new ArrayList<>();
+    @Builder.Default
+    private Collection<User> audienceUsers = new ArrayList<>();
 
     @Lob
     @Column(
@@ -79,13 +82,12 @@ public class Concert {
         }
 
         slotsRemaining--;
-        audience.add(buyer);
+        audienceUsers.add(buyer);
         return true;
     }
 
     public boolean buyable(){
         return slotsRemaining > 0 && performanceDate.compareTo(Calendar.getInstance()) > 0;
     }
-
 
 }

@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp.daos;
 
+import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ConcertDAO {
         return concertRepository.findById(id);
     }
 
-    public Collection<Concert> get(String genre){
+    public Collection<Concert> findByGenreWithUpcomingPerformanceDate(MusicGenre genre){
 
         return concertRepository.findByMusicGenreWithUpcomingPerformanceDate(genre);
 

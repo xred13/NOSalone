@@ -1,8 +1,12 @@
 package org.hakathon.fullstackapp.dtos;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class UserDto {
 
     private String name;

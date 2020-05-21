@@ -1,13 +1,17 @@
 package org.hakathon.fullstackapp.services;
 
-import org.hakathon.fullstackapp.converters.ConcertConverter;
+import org.hakathon.fullstackapp.converters.ConcertDtoToConcertConverter;
+import org.hakathon.fullstackapp.converters.ConcertToConcertDtoConverter;
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
 import org.hakathon.fullstackapp.dtos.ConcertDto;
+import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,40 +29,41 @@ public class ConcertService {
         this.userDAO = userDAO;
     }
 
-    public boolean buyConcert(long id, String buyerName) {
+    public void buyConcert(long id, String buyerName) throws HttpClientErrorException{
 
         Optional<Concert> optionalConcert = concertDAO.get(id);
         Optional<User> optionalUser = userDAO.get(buyerName);
 
-        if (!optionalConcert.isPresent() || !optionalUser.isPresent()) {
-            return false;
+        if (!optionalConcert.isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Could not find the requested concert.");
+        }
+
+        if(!optionalUser.isPresent()){
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "No user with the provided name found.");
         }
 
         Concert concert = optionalConcert.get();
         User buyer = optionalUser.get();
 
 
-        if (concert.buy(buyer)) {
-
-            buyer.addBoughtConcert(concert);
-
-            concertDAO.save(concert);
-            userDAO.save(buyer);
-
-            return true;
+        if (!concert.buy(buyer)) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Concert is no longer buyable.");
         }
 
-        return false;
+        buyer.addBoughtConcert(concert);
+
+        concertDAO.save(concert);
+        userDAO.save(buyer);
 
     }
 
-    public Collection<ConcertDto> getConcertsOfGenre(String genre) {
-        Collection<Concert> concerts = concertDAO.get(genre);
+    public Collection<ConcertDto> getConcertsOfGenre(MusicGenre genre) {
+        Collection<Concert> concerts = concertDAO.findByGenreWithUpcomingPerformanceDate(genre);
 
         Collection<ConcertDto> concertDtos = new ArrayList<>();
 
         for (Concert concert : concerts) {
-            concertDtos.add(ConcertConverter.convert(concert));
+            concertDtos.add(ConcertToConcertDtoConverter.convert(concert));
         }
 
         return concertDtos;
@@ -75,7 +80,7 @@ public class ConcertService {
 
         User creator = optionalUser.get();
 
-        Concert concert = ConcertConverter.convert(concertDto);
+        Concert concert = ConcertDtoToConcertConverter.convert(concertDto);
 
         concert.setSlotsRemaining(concert.getSlots());
         concert.setArtist(creator);
@@ -97,8 +102,8 @@ public class ConcertService {
 
         Collection<ConcertDto> concerts = new ArrayList<>();
 
-        for (Concert concert : user.getConcertsOwned()) {
-            concerts.add(ConcertConverter.convert(concert));
+        for (Concert concert : user.getOwnedConcerts()) {
+            concerts.add(ConcertToConcertDtoConverter.convert(concert));
         }
 
         return concerts;
@@ -116,8 +121,8 @@ public class ConcertService {
 
         Collection<ConcertDto> concerts = new ArrayList<>();
 
-        for (Concert concert : user.getConcertsBought()) {
-            concerts.add(ConcertConverter.convert(concert));
+        for (Concert concert : user.getBoughtConcerts()) {
+            concerts.add(ConcertToConcertDtoConverter.convert(concert));
         }
 
         return concerts;

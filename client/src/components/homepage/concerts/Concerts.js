@@ -40,7 +40,7 @@ class Concerts extends Component {
         },
 
         data: {
-          data: this.state.genre,
+          data: this.state.genre
         },
       })
       .then((response) => {

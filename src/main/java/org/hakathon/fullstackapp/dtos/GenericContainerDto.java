@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp.dtos;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
