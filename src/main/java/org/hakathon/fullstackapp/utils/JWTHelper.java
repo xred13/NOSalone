@@ -3,21 +3,23 @@ package org.hakathon.fullstackapp.utils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultJwtParser;
 import org.hakathon.fullstackapp.controller.UserController;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import java.util.Calendar;
 
+@Component
 public class JWTHelper {
 
-    private static final int TOKEN_EXPIRATION_MONTHS = 3;
-    private static final int TOKEN_EXPIRATION_DAYS = 0;
-    private static final int TOKEN_EXPIRATION_HOURS = 0;
-    private static final int TOKEN_EXPIRATION_MINUTES = 0;
-    private static final int TOKEN_EXPIRATION_SECONDS = 0;
+    private final int TOKEN_EXPIRATION_MONTHS = 3;
+    private final int TOKEN_EXPIRATION_DAYS = 0;
+    private final int TOKEN_EXPIRATION_HOURS = 0;
+    private final int TOKEN_EXPIRATION_MINUTES = 0;
+    private final int TOKEN_EXPIRATION_SECONDS = 0;
 
-    private static String key = "AsgEiugrKG12345678901234567890ab";
+    private String key = "AsgEiugrKG12345678901234567890ab";
 
-    public static String createToken(String username){
+    public String createToken(String username){
 
         Calendar calendar = getNewExpirationCalendar();
 
@@ -25,7 +27,7 @@ public class JWTHelper {
                 signWith(SignatureAlgorithm.HS256, key).compact();
     }
 
-    public static Cookie createTokenCookie(String username){
+    public Cookie createTokenCookie(String username){
 
         String jwtToken = createToken(username);
 
@@ -41,7 +43,7 @@ public class JWTHelper {
 
     }
 
-    public static Cookie createNullTokenCookie(){
+    public Cookie createNullTokenCookie(){
         Cookie jwtCookie = new Cookie("JWT", null);
         jwtCookie.setHttpOnly(true);
         jwtCookie.setMaxAge(0);
@@ -49,24 +51,24 @@ public class JWTHelper {
         return jwtCookie;
     }
 
-    public static Jws<Claims> checkTokenValidity(String compactToken) throws SignatureException{
+    public Jws<Claims> checkTokenValidity(String compactToken) throws SignatureException{
 
         return Jwts.parser().setSigningKey(key).parseClaimsJws(compactToken);
 
     }
 
-    public static Claims getBodyOfTokenWithoutValidating(String jwtToken){
+    public Claims getBodyOfTokenWithoutValidating(String jwtToken){
         String[] splitToken = jwtToken.split("\\.");
         String unsignedToken = splitToken[0] + "." + splitToken[1] + ".";
 
         return (Claims) (new DefaultJwtParser().parse(unsignedToken).getBody());
     }
 
-    private static int getRemainingSecondsToCalendar(Calendar calendar){
+    private int getRemainingSecondsToCalendar(Calendar calendar){
         return (int) ((calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()) / 1000);
     }
 
-    public static Calendar getNewExpirationCalendar(){
+    public Calendar getNewExpirationCalendar(){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, TOKEN_EXPIRATION_MONTHS);
         calendar.add(Calendar.DAY_OF_MONTH, TOKEN_EXPIRATION_DAYS);

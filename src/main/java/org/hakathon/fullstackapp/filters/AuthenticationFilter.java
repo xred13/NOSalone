@@ -6,6 +6,7 @@ import org.hakathon.fullstackapp.controller.UserController;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.hakathon.fullstackapp.utils.ServletPathHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,13 @@ import java.io.IOException;
 @Component
 @Order(2)
 public class AuthenticationFilter implements Filter {
+
+    private JWTHelper jwtHelper;
+
+    @Autowired
+    public AuthenticationFilter(JWTHelper jwtHelper){
+        this.jwtHelper = jwtHelper;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -43,10 +51,10 @@ public class AuthenticationFilter implements Filter {
 
                     try {
 
-                        Jws<Claims> jwsClaims = JWTHelper.checkTokenValidity(cookie.getValue());
+                        Jws<Claims> jwsClaims = jwtHelper.checkTokenValidity(cookie.getValue());
 
                         //replace cookie with a new one with updated expiration date
-                        httpServletResponse.addCookie(JWTHelper.createTokenCookie(jwsClaims.getBody().getSubject()));
+                        httpServletResponse.addCookie(jwtHelper.createTokenCookie(jwsClaims.getBody().getSubject()));
 
                         filterChain.doFilter(servletRequest, servletResponse);
 

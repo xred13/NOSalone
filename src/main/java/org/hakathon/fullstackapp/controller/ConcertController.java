@@ -35,15 +35,18 @@ public class ConcertController {
 
     private ConcertService concertService;
 
+    private JWTHelper jwtHelper;
+
     @Autowired
-    public ConcertController(ConcertService concertService) {
+    public ConcertController(ConcertService concertService, JWTHelper jwtHelper) {
         this.concertService = concertService;
+        this.jwtHelper = jwtHelper;
     }
 
     @PostMapping(BUY_CONCERT_PATH)
     public ResponseEntity<Void> buyConcert(@RequestBody GenericContainerDto<Long> idContainer, @CookieValue("JWT") String jwtToken) throws HttpClientErrorException{
 
-        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+        Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String buyerName = body.getSubject();
 
@@ -61,7 +64,7 @@ public class ConcertController {
     @GetMapping(GET_OWNED_CONCERTS_OF_USER_PATH)
     public Collection<ConcertDto> getOwnedConcertsOfUser(@CookieValue("JWT") String jwtToken) {
 
-        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+        Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String userName = body.getSubject();
 
@@ -74,7 +77,7 @@ public class ConcertController {
     @GetMapping(GET_BOUGHT_CONCERTS_OF_USER_PATH)
     public Collection<ConcertDto> getBoughtConcertsOfUser(@CookieValue("JWT") String jwtToken) {
 
-        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+        Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String userName = body.getSubject();
 
@@ -85,7 +88,7 @@ public class ConcertController {
     @PostMapping(CREATE_CONCERT_PATH)
     public void createConcert(@RequestBody ConcertDto concertDto, @CookieValue("JWT") String jwtToken) {
 
-        Claims body = JWTHelper.getBodyOfTokenWithoutValidating(jwtToken);
+        Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String buyerName = body.getSubject();
 

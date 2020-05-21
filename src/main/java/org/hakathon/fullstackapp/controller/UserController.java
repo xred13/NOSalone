@@ -27,9 +27,12 @@ public class UserController {
 
     private UserService userService;
 
+    private JWTHelper jwtHelper;
+
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, JWTHelper jwtHelper){
         this.userService = userService;
+        this.jwtHelper = jwtHelper;
     }
 
     @PostMapping(LOGIN_PATH)
@@ -37,7 +40,7 @@ public class UserController {
 
         if(userService.logIn(userDto.getName(), userDto.getPassword())){
 
-            httpServletResponse.addCookie(JWTHelper.createTokenCookie(userDto.getName()));
+            httpServletResponse.addCookie(jwtHelper.createTokenCookie(userDto.getName()));
 
             return true;
         }
@@ -48,7 +51,7 @@ public class UserController {
 
     @GetMapping(LOGOUT_PATH)
     public void logout(HttpServletResponse httpServletResponse){
-        httpServletResponse.addCookie(JWTHelper.createNullTokenCookie());
+        httpServletResponse.addCookie(jwtHelper.createNullTokenCookie());
     }
 
     @PostMapping(REGISTER_PATH)

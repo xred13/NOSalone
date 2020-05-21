@@ -51,8 +51,8 @@ public class DemoLoader implements CommandLineRunner {
                 .name("Summerland")
                 .performanceDate(tomorrow)
                 .price(0)
-                .slots(20)
-                .slotsRemaining(20)
+                .slots(2)
+                .slotsRemaining(2)
                 .artist(user)
                 .build();
 
