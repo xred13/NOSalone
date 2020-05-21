@@ -5,7 +5,7 @@ import "../../sass/concert_form/NewConcert.scss";
 
 class NewConcert extends Component {
   state = {
-    concertName: "",
+    name: "",
     musicGenre: "",
     performanceDate: "",
     image: null,
@@ -66,7 +66,7 @@ class NewConcert extends Component {
       data:{
         "performanceDate": this.state.performanceDate,
         "slots": this.state.slots,
-        "concertName": this.state.concertName,
+        "name": this.state.name,
         "musicGenre": this.state.musicGenre,
         "price": this.state.price,
         "imgBase64": imageBase64,
@@ -96,8 +96,8 @@ class NewConcert extends Component {
                     <input className="ConcertName"
                       placeholder="  Concert Name"
                       type="text"
-                      name="concertName"
-                      value={this.state.concertName}
+                      name="name"
+                      value={this.state.name}
                       onChange={this.handleChange}
                       required
                     />

@@ -1,17 +1,15 @@
 package org.hakathon.fullstackapp.services;
 
+import org.hakathon.fullstackapp.converters.ConcertConverter;
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
-import org.hakathon.fullstackapp.dtos.ConcertCreateDTO;
-import org.hakathon.fullstackapp.dtos.ConcertGetDTO;
+import org.hakathon.fullstackapp.dtos.ConcertDto;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.RollbackException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -42,7 +40,7 @@ public class ConcertService {
 
         if (concert.buy(buyer)) {
 
-            buyer.buyConcert(concert);
+            buyer.getConcertsBought().add(concert);
 
             concertDAO.save(concert);
             userDAO.save(buyer);
@@ -54,20 +52,22 @@ public class ConcertService {
 
     }
 
-    public Collection<ConcertGetDTO> getConcertsOfGenre(String genre) {
+    public Collection<ConcertDto> getConcertsOfGenre(String genre) {
         Collection<Concert> concerts = concertDAO.get(genre);
 
-        Collection<ConcertGetDTO> concertGetDTOS = new ArrayList<>();
+        Collection<ConcertDto> concertDtos = new ArrayList<>();
 
         for (Concert concert : concerts) {
-            concertGetDTOS.add(new ConcertGetDTO(concert));
+            System.out.println(concert.getArtist().getName());
+            System.out.println(ConcertConverter.convert(concert).getArtistName());
+            concertDtos.add(ConcertConverter.convert(concert));
         }
 
-        return concertGetDTOS;
+        return concertDtos;
 
     }
 
-    public void createConcert(ConcertCreateDTO concertCreateDTO, String concertCreatorName) {
+    public void createConcert(ConcertDto concertDto, String concertCreatorName) {
 
         Optional<User> optionalUser = userDAO.get(concertCreatorName);
 
@@ -77,14 +77,18 @@ public class ConcertService {
 
         User creator = optionalUser.get();
 
-        Concert concert = new Concert(concertCreateDTO.getConcertName(), concertCreateDTO.getDescription(), concertCreateDTO.getMusicGenre(), concertCreateDTO.getSlots(), concertCreateDTO.getPrice(), concertCreateDTO.getPerformanceDate(), creator, concertCreateDTO.getImgBase64());
+        Concert concert = ConcertConverter.convert(concertDto);
 
-        creator.addOwnConcert(concert);
+        concert.setSlotsRemaining(concert.getSlots());
+
+        creator.getConcertsOwned().add(concert);
+
+        //creator.addOwnConcert(concert);
 
         userDAO.save(creator);
     }
 
-    public Collection<ConcertGetDTO> getConcertsOwnedOfUser(String username){
+    public Collection<ConcertDto> getConcertsOwnedOfUser(String username){
 
         Optional<User> optionalUser = userDAO.get(username);
 
@@ -94,16 +98,16 @@ public class ConcertService {
 
         User user = optionalUser.get();
 
-        Collection<ConcertGetDTO> concerts = new ArrayList<>();
+        Collection<ConcertDto> concerts = new ArrayList<>();
 
         for (Concert concert : user.getConcertsOwned()) {
-            concerts.add(new ConcertGetDTO(concert));
+            concerts.add(ConcertConverter.convert(concert));
         }
 
         return concerts;
     }
 
-    public Collection<ConcertGetDTO> getConcertsBoughtOfUser(String username){
+    public Collection<ConcertDto> getConcertsBoughtOfUser(String username){
 
         Optional<User> optionalUser = userDAO.get(username);
 
@@ -113,10 +117,10 @@ public class ConcertService {
 
         User user = optionalUser.get();
 
-        Collection<ConcertGetDTO> concerts = new ArrayList<>();
+        Collection<ConcertDto> concerts = new ArrayList<>();
 
         for (Concert concert : user.getConcertsBought()) {
-            concerts.add(new ConcertGetDTO(concert));
+            concerts.add(ConcertConverter.convert(concert));
         }
 
         return concerts;
