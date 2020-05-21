@@ -1,16 +1,11 @@
 package org.hakathon.fullstackapp.controller;
 
-import com.sun.net.httpserver.Headers;
-import org.hakathon.fullstackapp.dtos.UserLoginDTO;
-import org.hakathon.fullstackapp.dtos.UserRegisterDTO;
+import org.hakathon.fullstackapp.dtos.UserDto;
 import org.hakathon.fullstackapp.services.UserService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,11 +33,11 @@ public class UserController {
     }
 
     @PostMapping(LOGIN_PATH)
-    public boolean login(@RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse){
+    public boolean login(@RequestBody UserDto userDto, HttpServletResponse httpServletResponse){
 
-        if(userService.logIn(userLoginDTO.getName(), userLoginDTO.getPassword())){
+        if(userService.logIn(userDto.getName(), userDto.getPassword())){
 
-            httpServletResponse.addCookie(JWTHelper.createTokenCookie(userLoginDTO.getName()));
+            httpServletResponse.addCookie(JWTHelper.createTokenCookie(userDto.getName()));
 
             return true;
         }
@@ -57,8 +52,8 @@ public class UserController {
     }
 
     @PostMapping(REGISTER_PATH)
-    public boolean register(@RequestBody UserRegisterDTO userRegisterDTO){
-        return userService.register(userRegisterDTO);
+    public boolean register(@RequestBody UserDto userDto){
+        return userService.register(userDto);
     }
 
 }

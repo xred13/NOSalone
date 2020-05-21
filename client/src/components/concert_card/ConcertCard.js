@@ -28,7 +28,7 @@ class ConcertCard extends Component {
       withCredentials: true,
 
       data:{
-        id: this.state.id
+        data: this.state.id
       }
     }).then(response => {
       alert("Bought concert successfully!")

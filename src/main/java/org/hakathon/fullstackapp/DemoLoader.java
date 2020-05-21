@@ -1,5 +1,6 @@
 package org.hakathon.fullstackapp;
 
+import org.hakathon.fullstackapp.builders.UserBuilder;
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
 import org.hakathon.fullstackapp.models.Concert;
@@ -31,24 +32,13 @@ public class DemoLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+        User user = new UserBuilder()
+                .setEmail("user@mail.com")
+                .setName("xred")
+                .setPassword(passwordEncoder.encode("password"))
+                .build();
 
-        User artist = new User("xred", "xred@mail.com", passwordEncoder.encode("password"));
-
-        artist.addOwnConcert(new Concert("Best concert ever!", "description goes here", "rock", 1, 60, tomorrow, artist, "https://picsum.photos/200/300"));
-
-        Calendar yesterday = Calendar.getInstance();
-        yesterday.add(Calendar.DAY_OF_MONTH, -1);
-
-        artist.addOwnConcert(new Concert("Best concert ever!2", "description goes here2", "rock", 62, 62, yesterday, artist, "https://picsum.photos/200/300"));
-
-        Calendar todayIn2Hours = Calendar.getInstance();
-        todayIn2Hours.add(Calendar.HOUR, 2);
-
-        artist.addOwnConcert(new Concert("Best concert ever3", "description goes here2", "rock", 62, 62, todayIn2Hours, artist, "https://picsum.photos/200/300"));
-
-        userDao.save(artist);
+        userDao.save(user);
 
     }
 
