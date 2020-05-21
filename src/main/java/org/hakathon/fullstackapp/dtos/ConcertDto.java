@@ -1,8 +1,12 @@
-package org.hakathon.fullstackapp.dtos;
+package org.hakathon.fullstackapp.dtos.concert;
+
+import org.hakathon.fullstackapp.models.Concert;
 
 import java.util.Calendar;
 
-public class ConcertCreateDTO {
+public class ConcertDto {
+
+    private Long id;
 
     private String concertName;
     private String description;
@@ -10,6 +14,7 @@ public class ConcertCreateDTO {
     private String musicGenre;
 
     private int slots;
+    private int slotsRemaining;
 
     private int price;
 
@@ -17,16 +22,17 @@ public class ConcertCreateDTO {
 
     private String imgBase64;
 
-    public ConcertCreateDTO(){}
+    private String artistName;
 
-    public ConcertCreateDTO(String concertName, String description, String musicGenre, int slots, int price, Calendar performanceDate, String imgBase64) {
-        this.concertName = concertName;
-        this.description = description;
-        this.musicGenre = musicGenre;
-        this.slots = slots;
-        this.price = price;
-        this.performanceDate = performanceDate;
-        this.imgBase64 = imgBase64;
+    public ConcertDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getConcertName() {
@@ -61,6 +67,14 @@ public class ConcertCreateDTO {
         this.slots = slots;
     }
 
+    public int getSlotsRemaining() {
+        return slotsRemaining;
+    }
+
+    public void setSlotsRemaining(int slotsRemaining) {
+        this.slotsRemaining = slotsRemaining;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -77,6 +91,14 @@ public class ConcertCreateDTO {
         this.performanceDate = performanceDate;
     }
 
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
     public String getImgBase64() {
         return imgBase64;
     }
@@ -84,4 +106,6 @@ public class ConcertCreateDTO {
     public void setImgBase64(String imgBase64) {
         this.imgBase64 = imgBase64;
     }
+
 }
+
