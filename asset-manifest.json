@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/NOSalone/static/css/main.5f5dde61.chunk.css",
-    "main.js": "/NOSalone/static/js/main.1689f94c.chunk.js",
-    "main.js.map": "/NOSalone/static/js/main.1689f94c.chunk.js.map",
-    "runtime-main.js": "/NOSalone/static/js/runtime-main.389f8db9.js",
-    "runtime-main.js.map": "/NOSalone/static/js/runtime-main.389f8db9.js.map",
-    "static/css/2.2ce93ba3.chunk.css": "/NOSalone/static/css/2.2ce93ba3.chunk.css",
-    "static/js/2.9a040ce4.chunk.js": "/NOSalone/static/js/2.9a040ce4.chunk.js",
-    "static/js/2.9a040ce4.chunk.js.map": "/NOSalone/static/js/2.9a040ce4.chunk.js.map",
-    "index.html": "/NOSalone/index.html",
-    "precache-manifest.1ad70e2bceca4933daa709730d8f6f29.js": "/NOSalone/precache-manifest.1ad70e2bceca4933daa709730d8f6f29.js",
-    "service-worker.js": "/NOSalone/service-worker.js",
-    "static/css/2.2ce93ba3.chunk.css.map": "/NOSalone/static/css/2.2ce93ba3.chunk.css.map",
-    "static/css/main.5f5dde61.chunk.css.map": "/NOSalone/static/css/main.5f5dde61.chunk.css.map",
-    "static/js/2.9a040ce4.chunk.js.LICENSE.txt": "/NOSalone/static/js/2.9a040ce4.chunk.js.LICENSE.txt",
-    "static/media/pageNotFound.scss": "/NOSalone/static/media/404.5dc8cb13.jpg",
-    "static/media/UploadIcon.svg": "/NOSalone/static/media/UploadIcon.1cedb6e9.svg"
+    "main.css": "/nosalone/static/css/main.7ac3e335.chunk.css",
+    "main.js": "/nosalone/static/js/main.ffc342df.chunk.js",
+    "main.js.map": "/nosalone/static/js/main.ffc342df.chunk.js.map",
+    "runtime-main.js": "/nosalone/static/js/runtime-main.2e3cff61.js",
+    "runtime-main.js.map": "/nosalone/static/js/runtime-main.2e3cff61.js.map",
+    "static/css/2.2ce93ba3.chunk.css": "/nosalone/static/css/2.2ce93ba3.chunk.css",
+    "static/js/2.9a040ce4.chunk.js": "/nosalone/static/js/2.9a040ce4.chunk.js",
+    "static/js/2.9a040ce4.chunk.js.map": "/nosalone/static/js/2.9a040ce4.chunk.js.map",
+    "index.html": "/nosalone/index.html",
+    "precache-manifest.59aefd8f0f86cd3a76425a8fc5ceb11b.js": "/nosalone/precache-manifest.59aefd8f0f86cd3a76425a8fc5ceb11b.js",
+    "service-worker.js": "/nosalone/service-worker.js",
+    "static/css/2.2ce93ba3.chunk.css.map": "/nosalone/static/css/2.2ce93ba3.chunk.css.map",
+    "static/css/main.7ac3e335.chunk.css.map": "/nosalone/static/css/main.7ac3e335.chunk.css.map",
+    "static/js/2.9a040ce4.chunk.js.LICENSE.txt": "/nosalone/static/js/2.9a040ce4.chunk.js.LICENSE.txt",
+    "static/media/pageNotFound.scss": "/nosalone/static/media/404.5dc8cb13.jpg",
+    "static/media/UploadIcon.svg": "/nosalone/static/media/UploadIcon.1cedb6e9.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.389f8db9.js",
+    "static/js/runtime-main.2e3cff61.js",
     "static/css/2.2ce93ba3.chunk.css",
     "static/js/2.9a040ce4.chunk.js",
-    "static/css/main.5f5dde61.chunk.css",
-    "static/js/main.1689f94c.chunk.js"
+    "static/css/main.7ac3e335.chunk.css",
+    "static/js/main.ffc342df.chunk.js"
   ]
 }
