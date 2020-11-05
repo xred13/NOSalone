@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bf7ebc8839103922e8ab5954b1f4f380",
+    "revision": "d96e0eaee57630ef556cd7437154020e",
     "url": "/NOSalone/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NOSalone/static/css/2.2ce93ba3.chunk.css"
   },
   {
-    "revision": "79632f9c637413c547e5",
+    "revision": "4120ea3cadec6baec6d7",
     "url": "/NOSalone/static/css/main.5f5dde61.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NOSalone/static/js/2.9a040ce4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "79632f9c637413c547e5",
-    "url": "/NOSalone/static/js/main.36a0f9ec.chunk.js"
+    "revision": "4120ea3cadec6baec6d7",
+    "url": "/NOSalone/static/js/main.2524b61b.chunk.js"
   },
   {
     "revision": "54efb180982818d32717",
