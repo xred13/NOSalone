@@ -65,10 +65,8 @@ public class ConcertController {
 
     @PostMapping(GET_CONCERTS_OF_GENRE_PATH)
     public Collection<ConcertDto> getConcertsOfGenre(@RequestBody GenericContainerDto<MusicGenre> genreContainer, HttpServletResponse response) {
-        System.out.println("here");
         // if an invalid music genre is given
         if(genreContainer.getData() == null){
-            System.out.println(genreContainer.getData());
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return null;
         }

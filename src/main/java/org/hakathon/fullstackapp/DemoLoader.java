@@ -53,7 +53,7 @@ public class DemoLoader implements CommandLineRunner {
         user = userDao.save(user);
 
         Concert concert = Concert.builder()
-                .description("A pretty good concert")
+                .description("Good concert")
                 .imgBase64("https://picsum.photos/seed/picsum/200/300")
                 .musicGenre(MusicGenre.CLASSIC)
                 .name("Summerland")

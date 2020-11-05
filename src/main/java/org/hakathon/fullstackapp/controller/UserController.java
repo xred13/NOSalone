@@ -1,6 +1,7 @@
 package org.hakathon.fullstackapp.controller;
 
 import org.hakathon.fullstackapp.dtos.received.UserRegisterDto;
+import org.hakathon.fullstackapp.dtos.received.UserUsernameLoginDto;
 import org.hakathon.fullstackapp.services.UserService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,8 @@ public class UserController {
     }
 
     @PostMapping(LOGIN_PATH)
-    public boolean login(@Validated @RequestBody UserRegisterDto userDto, HttpServletResponse httpServletResponse){
-
+    public boolean login(@Validated @RequestBody UserUsernameLoginDto userDto, HttpServletResponse httpServletResponse){
         if(userService.logIn(userDto.getName(), userDto.getPassword())){
-
             httpServletResponse.addCookie(jwtHelper.createTokenCookie(userDto.getName()));
 
             return true;

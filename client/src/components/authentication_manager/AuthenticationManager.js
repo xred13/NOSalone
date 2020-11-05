@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export function LogIn(dispatch, username, password) {
-  console.log("Setting localstorage and redux status to logged in!");
 
   axios
     .request({
@@ -15,7 +14,7 @@ export function LogIn(dispatch, username, password) {
 
       data: {
         name: username,
-        password: password,
+        password: password
       },
     })
     .then((response) => {
