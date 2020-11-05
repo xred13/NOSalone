@@ -2,9 +2,17 @@ package org.hakathon.fullstackapp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hakathon.fullstackapp.constraints.concert.description.ConcertDescriptionValidator;
+import org.hakathon.fullstackapp.constraints.concert.name.ConcertNameValidator;
+import org.hakathon.fullstackapp.constraints.concert.price.ConcertPriceValidator;
+import org.hakathon.fullstackapp.constraints.concert.slots.ConcertSlotsValidator;
+import org.hakathon.fullstackapp.constraints.concert.slots_remaining.ConcertSlotsRemainingValidator;
 import org.hakathon.fullstackapp.enums.MusicGenre;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -27,14 +35,15 @@ public class Concert {
     private long version;
 
     @Column(
-            length = 20,
             nullable = false
     )
+    @Length(min = ConcertNameValidator.MIN_NAME_LENGTH, max = ConcertNameValidator.MAX_NAME_LENGTH)
     private String name;
+
     @Column(
-            length = 200,
             nullable = false
     )
+    @Length(min = ConcertDescriptionValidator.MIN_DESCRIPTION_LENGTH, max = ConcertDescriptionValidator.MAX_DESCRIPTION_LENGTH)
     private String description;
 
     @Column(
@@ -42,12 +51,16 @@ public class Concert {
     )
     private MusicGenre musicGenre;
 
+    @Range(min = ConcertSlotsValidator.MIN_SLOTS_VALUE, max = ConcertSlotsValidator.MAX_SLOTS_VALUE)
     private int slots;
+
+    @Range(min = ConcertSlotsRemainingValidator.MIN_SLOTS_REMAINING, max = ConcertSlotsRemainingValidator.MAX_SLOTS_REMAINING)
     private int slotsRemaining;
 
     @Column(
             nullable = false
     )
+    @Range(min = ConcertPriceValidator.MIN_PRICE, max = ConcertPriceValidator.MAX_PRICE)
     private int price;
 
     @Column(

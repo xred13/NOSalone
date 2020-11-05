@@ -4,7 +4,7 @@ import org.hakathon.fullstackapp.converters.ConcertDtoToConcertConverter;
 import org.hakathon.fullstackapp.converters.ConcertToConcertDtoConverter;
 import org.hakathon.fullstackapp.daos.ConcertDAO;
 import org.hakathon.fullstackapp.daos.UserDAO;
-import org.hakathon.fullstackapp.dtos.ConcertDto;
+import org.hakathon.fullstackapp.dtos.sent.ConcertDto;
 import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.models.Concert;
 import org.hakathon.fullstackapp.models.User;
@@ -60,13 +60,13 @@ public class ConcertService {
     public Collection<ConcertDto> getConcertsOfGenre(MusicGenre genre) {
         Collection<Concert> concerts = concertDAO.findByGenreWithUpcomingPerformanceDate(genre);
 
-        Collection<ConcertDto> concertDtos = new ArrayList<>();
+        Collection<ConcertDto> concertDtoCollection = new ArrayList<>();
 
         for (Concert concert : concerts) {
-            concertDtos.add(ConcertToConcertDtoConverter.convert(concert));
+            concertDtoCollection.add(ConcertToConcertDtoConverter.convert(concert));
         }
 
-        return concertDtos;
+        return concertDtoCollection;
 
     }
 

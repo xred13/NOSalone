@@ -1,17 +1,19 @@
 package org.hakathon.fullstackapp.controller;
 
 import io.jsonwebtoken.*;
-import org.hakathon.fullstackapp.dtos.ConcertDto;
-import org.hakathon.fullstackapp.dtos.GenericContainerDto;
+import org.hakathon.fullstackapp.dtos.sent.ConcertDto;
+import org.hakathon.fullstackapp.dtos.received.GenericContainerDto;
 import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.services.ConcertService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.Console;
 import java.util.*;
 
 @RestController
@@ -44,20 +46,33 @@ public class ConcertController {
     }
 
     @PostMapping(BUY_CONCERT_PATH)
-    public ResponseEntity<Void> buyConcert(@RequestBody GenericContainerDto<Long> idContainer, @CookieValue("JWT") String jwtToken) throws HttpClientErrorException{
+    public ResponseEntity<?> buyConcert(@RequestBody GenericContainerDto<Long> idContainer, @CookieValue("JWT") String jwtToken) {
 
         Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String buyerName = body.getSubject();
 
-        concertService.buyConcert(idContainer.getData(), buyerName);
-        return ResponseEntity.ok().build();
+        try {
+            concertService.buyConcert(idContainer.getData(), buyerName);
+            return ResponseEntity.ok().build();
+
+        } catch (HttpClientErrorException e) {
+            return new ResponseEntity<>(e.getStatusText(), HttpStatus.BAD_REQUEST);
+        }
 
 
     }
 
     @PostMapping(GET_CONCERTS_OF_GENRE_PATH)
-    public Collection<ConcertDto> getConcertsOfGenre(@RequestBody GenericContainerDto<MusicGenre> genreContainer) {
+    public Collection<ConcertDto> getConcertsOfGenre(@RequestBody GenericContainerDto<MusicGenre> genreContainer, HttpServletResponse response) {
+        System.out.println("here");
+        // if an invalid music genre is given
+        if(genreContainer.getData() == null){
+            System.out.println(genreContainer.getData());
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return null;
+        }
+
         return concertService.getConcertsOfGenre(genreContainer.getData());
     }
 
@@ -86,13 +101,14 @@ public class ConcertController {
     }
 
     @PostMapping(CREATE_CONCERT_PATH)
-    public void createConcert(@RequestBody ConcertDto concertDto, @CookieValue("JWT") String jwtToken) {
+    public ResponseEntity<?> createConcert(@RequestBody ConcertDto concertDto, @CookieValue("JWT") String jwtToken) {
 
         Claims body = jwtHelper.getBodyOfTokenWithoutValidating(jwtToken);
 
         String buyerName = body.getSubject();
 
         concertService.createConcert(concertDto, buyerName);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
+
 public enum MusicGenre {
 
-    @JsonProperty("classic")
     CLASSIC,
     ROCK,
     POP,
@@ -28,11 +29,14 @@ public enum MusicGenre {
 
     @JsonCreator
     public static MusicGenre convert(String genre) {
+
         for (MusicGenre musicGenre : values()) {
             if (musicGenre.toString().equals(genre)) return musicGenre;
         }
 
+        // shouldnt reach
         return null;
+
     }
 
     @JsonProperty

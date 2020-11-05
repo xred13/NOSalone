@@ -1,8 +1,8 @@
 package org.hakathon.fullstackapp.services;
 
-import org.hakathon.fullstackapp.converters.UserDtoToUserConverter;
+import org.hakathon.fullstackapp.converters.UserRegisterDtoToUserConverter;
 import org.hakathon.fullstackapp.daos.UserDAO;
-import org.hakathon.fullstackapp.dtos.UserDto;
+import org.hakathon.fullstackapp.dtos.received.UserRegisterDto;
 import org.hakathon.fullstackapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -41,9 +41,9 @@ public class UserService {
 
     }
 
-    public boolean register(UserDto userDto) {
+    public boolean register(UserRegisterDto userRegisterDto) {
 
-        User user = UserDtoToUserConverter.convert(userDto);
+        User user = UserRegisterDtoToUserConverter.convert(userRegisterDto);
 
         try {
 

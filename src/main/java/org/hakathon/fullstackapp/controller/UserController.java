@@ -1,9 +1,10 @@
 package org.hakathon.fullstackapp.controller;
 
-import org.hakathon.fullstackapp.dtos.UserDto;
+import org.hakathon.fullstackapp.dtos.received.UserRegisterDto;
 import org.hakathon.fullstackapp.services.UserService;
 import org.hakathon.fullstackapp.utils.JWTHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping(LOGIN_PATH)
-    public boolean login(@RequestBody UserDto userDto, HttpServletResponse httpServletResponse){
+    public boolean login(@Validated @RequestBody UserRegisterDto userDto, HttpServletResponse httpServletResponse){
 
         if(userService.logIn(userDto.getName(), userDto.getPassword())){
 
@@ -55,8 +56,8 @@ public class UserController {
     }
 
     @PostMapping(REGISTER_PATH)
-    public boolean register(@RequestBody UserDto userDto){
-        return userService.register(userDto);
+    public boolean register(@Validated @RequestBody UserRegisterDto userRegisterDto){
+        return userService.register(userRegisterDto);
     }
 
 }

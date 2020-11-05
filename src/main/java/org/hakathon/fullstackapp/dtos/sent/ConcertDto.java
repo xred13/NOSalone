@@ -1,9 +1,11 @@
-package org.hakathon.fullstackapp.dtos;
+package org.hakathon.fullstackapp.dtos.sent;
 
 import lombok.*;
 import org.hakathon.fullstackapp.enums.MusicGenre;
 import org.hakathon.fullstackapp.models.Concert;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Calendar;
 
 @Builder

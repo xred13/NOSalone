@@ -3,6 +3,12 @@ package org.hakathon.fullstackapp.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.expr.Cast;
 import lombok.*;
+import org.hakathon.fullstackapp.config.AppConfig;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+
+import static org.hakathon.fullstackapp.constraints.user.name.UserNameValidator.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,9 +38,9 @@ public class User {
 
     @Column(
             unique = true,
-            nullable = false,
-            length = 15
+            nullable = false
     )
+    @Length(min = MIN_LENGTH, max = MAX_LENGTH)
     private String name;
 
     @Column(
@@ -45,8 +51,11 @@ public class User {
     private String email;
 
     @Column(
-            nullable = false,
-            length = 128
+            nullable = false
+    )
+    @Length(
+            min = 8,
+            max = 128
     )
     private String password;
 

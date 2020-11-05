@@ -52,6 +52,7 @@ class Concerts extends Component {
       })
       .catch((response) => {
         console.log("Something went wrong!");
+        console.log(response);
       });
   };
 

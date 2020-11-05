@@ -1,6 +1,6 @@
 package org.hakathon.fullstackapp.converters;
 
-import org.hakathon.fullstackapp.dtos.ConcertDto;
+import org.hakathon.fullstackapp.dtos.sent.ConcertDto;
 import org.hakathon.fullstackapp.models.Concert;
 
 public class ConcertDtoToConcertConverter {
