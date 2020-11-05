@@ -27,16 +27,16 @@ export default function ButtonAppBar(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <a className="navbar-text" href="/">
+            <a className="navbar-text" href={process.env.PUBLIC_URL + "/"}>
               NOS alone'20
             </a>
           </Typography>
           {props.isLoggedIn ? (
             <React.Fragment>
-              <Button href="/form">
+              <Button href={process.env.PUBLIC_URL + "/form"}>
                 <div className="navbar-text">Add a concert</div>
               </Button>
-              <Button href="/myprofile">
+              <Button href={process.env.PUBLIC_URL + "/myprofile"}>
                 <div className="navbar-text">MyProfile</div>
               </Button>
               <Button onClick={() => LogOut(props.setLoggedIn)}>
@@ -45,10 +45,10 @@ export default function ButtonAppBar(props) {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Button href="/login">
+              <Button href={process.env.PUBLIC_URL + "/login"}>
                 <div className="navbar-text">Login</div>
               </Button>
-              <Button href="/register">
+              <Button href={process.env.PUBLIC_URL + "/register"}>
                 <div className="navbar-text">Register</div>
               </Button>
             </React.Fragment>

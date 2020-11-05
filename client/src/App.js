@@ -1,6 +1,6 @@
 import React from "react";
 import HomePage from "./components/homepage/HomePage";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, HashRouter } from "react-router-dom";
 import Default404 from "./components/default404/Default404";
 import Banner from "./components/banner/Banner";
 import "./sass/root/Root.scss";
@@ -12,7 +12,7 @@ import Register from "./components/register/Register";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
 
       <Navbar />
       <Banner />
@@ -20,7 +20,6 @@ function App() {
       <Switch>
 
         <Route exact path="/" component={HomePage} />
-
         <Route path="/form" component={NewConcert} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

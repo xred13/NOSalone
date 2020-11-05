@@ -1,5 +1,8 @@
 {
-  "homepage": "http://xred13.github.io/NOSalone",
+  "engines": {
+    "npm": "6.9.0",
+    "node": "10.16.0"
+  },
   "name": "client",
   "version": "0.1.0",
   "private": true,
