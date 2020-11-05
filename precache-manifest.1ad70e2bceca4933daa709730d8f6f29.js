@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "052162f85585fc5aca30f69261df045a",
+    "revision": "fe2b585021c8c724280af7a1f43f62f3",
     "url": "/NOSalone/index.html"
   },
   {
-    "revision": "94e8ecd0ec485a0415ed",
+    "revision": "6298a245fbc8cf204566",
     "url": "/NOSalone/static/css/2.2ce93ba3.chunk.css"
   },
   {
-    "revision": "867e27a594542bfa3b30",
+    "revision": "a5a49c3b2d7d2efcb3cf",
     "url": "/NOSalone/static/css/main.5f5dde61.chunk.css"
   },
   {
-    "revision": "94e8ecd0ec485a0415ed",
-    "url": "/NOSalone/static/js/2.a80f8eef.chunk.js"
+    "revision": "6298a245fbc8cf204566",
+    "url": "/NOSalone/static/js/2.9a040ce4.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/NOSalone/static/js/2.a80f8eef.chunk.js.LICENSE.txt"
+    "url": "/NOSalone/static/js/2.9a040ce4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "867e27a594542bfa3b30",
-    "url": "/NOSalone/static/js/main.72e8063b.chunk.js"
+    "revision": "a5a49c3b2d7d2efcb3cf",
+    "url": "/NOSalone/static/js/main.1689f94c.chunk.js"
   },
   {
     "revision": "54efb180982818d32717",
